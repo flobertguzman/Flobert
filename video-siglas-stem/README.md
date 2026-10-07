@@ -1,18 +1,21 @@
-# Video «Significado de las siglas STEM» — Aceleradores STEM · MESCyT
+# Reel «Significado de las siglas STEM» — Aceleradores STEM · MESCyT
 
-Video vertical de 30 s (1080×1920, 30 fps) hecho con Remotion a partir de `BRIEF.md`.
+Reel vertical de 30 s (1080×1920, 9:16, 30 fps) hecho con Remotion a partir de `BRIEF.md`.
+**Versión 2:** collage editorial con cortes rápidos, tipografía cinética y un «mundo» visual por área.
+Ya no usa la banda de vidrio de fondo. La versión 1 se conserva aparte.
 
 ## Entregables (`entregables/`)
 
 | Archivo | Qué es |
 |---|---|
-| `STEM_siglas_9x16_30s.mp4` | Versión final: H.264 + AAC estéreo, subtítulos quemados |
-| `STEM_siglas_9x16_30s_sin-subtitulos.mp4` | Misma pieza sin subtítulos, para edición |
-| `guion_final.md` | Guion con los tiempos reales de cada escena y de la locución |
-| `guion_tiempos.srt` | Subtítulos por bloque (por si una plataforma los pide aparte) |
+| `STEM_siglas_9x16_30s.mp4` | Reel final: H.264 (bt709) + AAC estéreo, subtítulos quemados |
+| `STEM_siglas_9x16_30s_sin-subtitulos.mp4` | El mismo reel sin subtítulos, para edición |
+| `guion_final.md` | Guion con los tiempos reales de cada plano y de la locución |
+| `guion_tiempos.srt` | Subtítulos por bloque |
 | `locucion_30s.wav` | Voz sola, ya colocada en su sitio (48 kHz, 24 bits) |
-| `musica_y_efectos_30s.wav` | Música + efectos sin voz (para remezclar) |
-| `mezcla_30s.wav` | Mezcla final que llevan los MP4 |
+| `musica_y_efectos_30s.wav` | Música + efectos sin voz |
+| `mezcla_30s.wav` | Mezcla final que llevan los MP4 (−15 LUFS, pico real −2,8 dBTP) |
+| `version-1/` | MP4 de la primera versión (banda de vidrio de fondo) |
 
 ## Estructura del proyecto
 
@@ -21,56 +24,66 @@ src/
   marca.ts          colores, márgenes y curvas de animación (línea gráfica del brief, sección 4)
   tiempos.ts        línea de tiempo: dónde empieza y cuánto dura cada escena
   fonts.ts          Hurme Geometric Sans 4 + Caveat Bold desde public/fonts (no necesita red)
-  Video.tsx         composición principal «STEM-siglas» (prop `subtitulos`)
-  Root.tsx          registra la principal y cada escena como composición aparte
+  Video.tsx         composición principal «STEM-siglas» (prop `subtitulos`) + transiciones
+  Root.tsx          registra el reel, cada escena por separado (carpeta «escenas») y la versión 1
   escenas/
-    E1Letras.tsx    0–3 s      S · T · E · M golpean una por una
-    E2Area.tsx      3–15 s     una letra cada 3 s: inicial → inglés → español + zona de la banda
-    E3Juntas.tsx    15–19 s    las letras se juntan y la banda completa cruza
-    E4Robot.tsx     19–24,4 s  Programación + Ingeniería + Matemáticas = un robot
-    E5Personas.tsx  24,4–27 s  Camila y Elías entran desde los lados: «¿Qué área te da más curiosidad?»
-    E6Cierre.tsx    27–30 s    logo MESCyT, hashtags, «Imagen creada con IA», fundido a azul
-  componentes/      Fondo, Etiqueta, BandaZona (ventana sobre la banda), Robot (SVG), Subtitulos
+    R1Gancho.tsx    0–3 s      una palabra por plano + S·T·E·M en bloques y zoom a la S
+    R2Letra.tsx     3–15 s     una letra cada 3 s, cada una en su mundo (configuración en LETRAS)
+    R3Juntas.tsx    15–19 s    4 franjas con sus carreras → las letras se juntan → TRABAJAN JUNTAS
+    R4Robot.tsx     19–24,4 s  plano del robot → cortes por palabra mientras se arma → = UN ROBOT
+    R5Pregunta.tsx  24,4–27 s  ¿Qué área te da más curiosidad? con Camila y Elías
+    R6Cierre.tsx    27–30 s    firma S·T·E·M, logo MESCyT, hashtags, «Imagen creada con IA»
+  componentes/
+    collage.tsx     Papel, Trama, Sticker, Cinta, Sello, Tag, FotoCinta, Trazo, LetraGigante, Camara
+    mundos.tsx      MundoCiencia, MundoTecnologia, MundoIngenieria, MundoMatematicas
+    Transicion.tsx  flash, barras, persiana, papel, iris
+    Robot.tsx       robot SVG que se arma por partes
+    Subtitulos.tsx  subtítulos palabra por palabra
   datos/subtitulos.json   tiempos palabra por palabra (lo genera herramientas/audio.py)
+  v1/               primera versión completa (composición «STEM-siglas-v1»)
+public/
+  stickers/         Camila con gafas RV, Elías con calculadora, la pareja señalando (con borde blanco)
+  fotos/            una foto por área para pegarla con cinta
+  papel.jpg         textura de papel
+assets/recortes_nuevos/   recortes originales que se entregaron para la versión 2
 audio/voz_original/       las 8 frases de la locución tal como salieron de ElevenLabs
 herramientas/
-  audio.py          arma locución, efectos, música y mezcla; calcula los subtítulos
-  render_todo.sh    renderiza la versión limpia y la de subtítulos (solo imagen)
-  entregables.sh    une cada render con la mezcla y deja los MP4 en entregables/
-  muestras.mjs      renderiza fotogramas sueltos para revisar
+  preparar_assets.py  genera stickers, fotos y papel a partir de los originales
+  audio.py            locución, efectos, música, mezcla y tiempos de subtítulos
+  render_todo.sh      renderiza la versión limpia y la de subtítulos (solo imagen)
+  entregables.sh      une cada render con la mezcla y deja los MP4 en entregables/
+  muestras.mjs        renderiza fotogramas sueltos para revisar
 ```
-
-Los componentes reutilizan lo definido en los carruseles (`Carrusel.tsx` y `Carrusel2.tsx` del paquete):
-colores, banda `car/banda_b.png`, recortes de Camila y Elías, tarjetas de vidrio, etiqueta con guion rojo y firma.
-Los carruseles no se copiaron: importaban archivos que no venían en el paquete y estaban diseñados a 1080×1350.
 
 ## Cómo reproducirlo
 
 ```bash
 npm install
+python3 herramientas/preparar_assets.py         # solo si cambian los recortes originales
 npm run audio                                   # entregables/*.wav + src/datos/subtitulos.json
-bash herramientas/render_todo.sh                # out/limpio.mp4 y out/subtitulos.mp4
+bash herramientas/render_todo.sh                # out/limpio.mp4 y out/subtitulos.mp4 (≈ 4 min)
 bash herramientas/entregables.sh                # MP4 finales con audio
 npm run dev                                     # Remotion Studio para revisar
 ```
 
-Si Remotion no puede descargar su Chrome (redes cerradas), se le pasa uno local:
+Si Remotion no puede descargar su Chrome, se le pasa uno local con
 `NAVEGADOR=/ruta/a/chrome bash herramientas/render_todo.sh`.
 
-El audio se une con ffmpeg, no con Remotion. Así no aparece el retraso de ~42,7 ms del AAC que menciona el brief.
-En los MP4 finales la voz queda sincronizada al fotograma. Se comprobó comparando la pista del MP4 con la mezcla WAV.
+El audio se une con ffmpeg, no con Remotion, así que no hay el retraso de ~42,7 ms del AAC que menciona el brief.
+Se comprobó comparando la pista del MP4 con la mezcla WAV: 0 ms de desfase.
 
 ## Cambios habituales
 
-- **Llega la línea gráfica del cliente:** cambiar colores en `src/marca.ts` (y tipografías en `src/fonts.ts`). Todas las escenas leen de ahí.
-- **Otra voz** (p. ej. la voz clonada de Camila en Cartesia): reemplazar los 8 MP3 de `audio/voz_original/` con los mismos nombres y correr `npm run audio`. Los tiempos de los subtítulos y la mezcla se recalculan solos. Si una frase dura más que su escena, subir su `tempo` en `FRASES` (audio.py).
-- **Imagen del robot generada con IA:** sustituir el `<Robot>` de `E4Robot.tsx` por un `<Img>`; las tarjetas y los tiempos no cambian.
-- **Música:** la actual se sintetiza en `audio.py`. Para usar una pista con licencia, mezclarla en lugar de `musica()`, ya que el ducking de −11 dB bajo la voz ya está hecho.
+- **Llega la línea gráfica del cliente:** colores en `src/marca.ts`, tipografías en `src/fonts.ts`.
+- **Otra voz:** reemplazar los 8 MP3 de `audio/voz_original/` con los mismos nombres y correr `npm run audio`. Si cambian mucho los tiempos, ajustar `en`/`es` en `LETRAS` (`R2Letra.tsx`) y los fotogramas de `R4Robot.tsx`.
+- **Otra persona o foto en una letra:** `LETRAS` en `R2Letra.tsx` (campos `sticker` y `foto`).
+- **Imagen del robot generada con IA:** sustituir `<Robot>` en `R4Robot.tsx` por un `<Img>`.
 
 ## Decisiones y pendientes
 
-- **Voz:** «Vivi» (ElevenLabs, español latinoamericano, positiva y cercana). En la cuenta no hay voces dominicanas, y la voz clonada de Camila en Cartesia no se pudo verificar desde esta sesión.
-- **Robot:** ilustrado y animado en Remotion (opción sin créditos del brief).
-- **Personas:** se usa `recorte_a` (saludando). Se puede partir limpio por donde se tocan, para que cada uno entre por su lado. `recorte_b` (brazos cruzados, señalando) se solapa y no se puede separar sin rellenar.
-- **Línea gráfica del cliente:** pendiente; se usó la sección 4 del brief.
+- **Fotos por área:** las fotos pegadas con cinta (ADN, puente) salen de las zonas de `banda_b.png`. La banda ya no aparece como elemento de fondo; si no se quiere ese material, se quitan los campos `foto` en `LETRAS`.
+- **Subtítulos:** en la apertura y en la pregunta final no hay etiqueta, porque la tipografía cinética muestra la locución palabra por palabra. En la versión «sin subtítulos» esa tipografía sigue, porque forma parte del diseño.
+- **Voz:** «Vivi» (ElevenLabs, español latinoamericano). No hay voz dominicana en la cuenta.
+- **Referencias de Instagram:** no se pudieron revisar desde esta sesión. El estilo sigue la descripción del brief: letras gigantes que golpean, bloques de color, personas recortadas, textura de papel, cortes rápidos y cierre con logo.
+- **Línea gráfica del cliente:** pendiente.
 - **Versión 1:1:** no se hizo (opcional en el brief).

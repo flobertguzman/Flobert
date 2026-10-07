@@ -13,11 +13,13 @@ type P = {
   pecho: number;
   vivo: number;
   ancho?: number;
+  revelado?: number; // 0–1: el plano punteado se dibuja de arriba abajo
+  linea?: string; // contorno de cabeza y cuerpo (contraste sobre fondos claros)
 };
 
 const resorte = { damping: 11, stiffness: 170, mass: 0.8 };
 
-export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470 }) => {
+export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470, revelado = 1, linea = 'rgba(36,58,117,0.28)' }) => {
   const { fps } = useVideoConfig();
   const sCab = spring({ frame: f - cabeza, fps, config: resorte });
   const sCue = spring({ frame: f - cuerpo, fps, config: resorte });
@@ -29,9 +31,9 @@ export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470
   const saludo = vida * (0.5 + 0.5 * Math.sin(t / 4.2)) * 14; // 0–14° hacia fuera
   const flota = vida * Math.sin(t / 14) * 7;
   const pulso = 0.6 + 0.4 * Math.sin(f / 5);
-  const fantasma = 0.5 * (1 - Math.min(1, (hay(cabeza) + hay(cuerpo) + hay(pecho)) / 3));
+  const fantasma = 0.85 * (1 - Math.min(1, (hay(cabeza) + hay(cuerpo) + hay(pecho)) / 3));
 
-  const trazo = { fill: 'none', stroke: 'rgba(255,255,255,0.55)', strokeWidth: 3.5, strokeDasharray: '11 9' } as const;
+  const trazo = { fill: 'none', stroke: 'rgba(255,255,255,0.8)', strokeWidth: 4.5, strokeDasharray: '12 9' } as const;
 
   return (
     <svg width={ancho} height={(ancho * 640) / 440} viewBox="0 0 440 640" style={{ overflow: 'visible' }}>
@@ -44,6 +46,9 @@ export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470
           <stop offset="0" stopColor="#A9BDF0" />
           <stop offset="1" stopColor="#6F8AD0" />
         </linearGradient>
+        <clipPath id="r-revelado">
+          <rect x="-50" y="-50" width="540" height={50 + 700 * revelado} />
+        </clipPath>
         <filter id="r-brillo" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="7" />
         </filter>
@@ -53,7 +58,7 @@ export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470
 
       <g transform={`translate(0, ${-flota})`}>
         {/* silueta de plano que se llena al sumar las áreas */}
-        <g opacity={fantasma}>
+        <g opacity={fantasma} clipPath="url(#r-revelado)">
           <rect x="70" y="95" width="300" height="195" rx="64" {...trazo} />
           <rect x="105" y="300" width="230" height="230" rx="60" {...trazo} />
           <rect x="48" y="318" width="50" height="170" rx="25" {...trazo} />
@@ -78,7 +83,7 @@ export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470
           </g>
           <rect x="105" y="300" width="230" height="230" rx="60" fill="url(#r-blanco)" />
           <rect x="105" y="468" width="230" height="26" fill={C.acento} />
-          <rect x="105" y="300" width="230" height="230" rx="60" fill="none" stroke="rgba(36,58,117,0.28)" strokeWidth="3" />
+          <rect x="105" y="300" width="230" height="230" rx="60" fill="none" stroke={linea} strokeWidth="4" />
           <g transform={`rotate(${t * 3.2} 220 481)`}>
             <circle cx="220" cy="481" r="27" fill="none" stroke={C.azul} strokeWidth="13" strokeDasharray="9.6 9.6" />
             <circle cx="220" cy="481" r="19" fill={C.azul} />
@@ -102,7 +107,7 @@ export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470
           <rect x="48" y="165" width="30" height="76" rx="15" fill={C.acento} />
           <rect x="362" y="165" width="30" height="76" rx="15" fill={C.acento} />
           <rect x="70" y="95" width="300" height="195" rx="64" fill="url(#r-blanco)" />
-          <rect x="70" y="95" width="300" height="195" rx="64" fill="none" stroke="rgba(36,58,117,0.28)" strokeWidth="3" />
+          <rect x="70" y="95" width="300" height="195" rx="64" fill="none" stroke={linea} strokeWidth="4" />
           <rect x="100" y="124" width="240" height="138" rx="44" fill={C.fondoB} />
           <text x="220" y="156" textAnchor="middle" fontFamily="Hurme, sans-serif" fontWeight={700} fontSize="21" fill={C.cian} opacity={0.75 - 0.25 * vida}>{'</>'}</text>
           <g opacity={0.2 + 0.8 * vida} style={{ transformOrigin: '220px 198px' }} transform={`translate(0 ${198 * (1 - parpadeo)}) scale(1 ${parpadeo})`}>

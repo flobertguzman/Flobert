@@ -1,41 +1,39 @@
 import './index.css';
-import { AbsoluteFill, Composition } from 'remotion';
-import { Etiqueta } from './componentes/Etiqueta';
-import { Fondo } from './componentes/Fondo';
-import { E1Letras } from './escenas/E1Letras';
-import { E2Area } from './escenas/E2Area';
-import { E3Juntas } from './escenas/E3Juntas';
-import { E4Robot } from './escenas/E4Robot';
-import { E5Personas } from './escenas/E5Personas';
-import { E6Cierre } from './escenas/E6Cierre';
+import { AbsoluteFill, Composition, Folder } from 'remotion';
+import { R1Gancho } from './escenas/R1Gancho';
+import { R2Letra } from './escenas/R2Letra';
+import { R3Juntas } from './escenas/R3Juntas';
+import { R4Robot } from './escenas/R4Robot';
+import { R5Pregunta } from './escenas/R5Pregunta';
+import { R6Cierre } from './escenas/R6Cierre';
 import { FONT } from './fonts';
 import { ALTO, ANCHO, FPS } from './marca';
 import { ESCENAS, TOTAL } from './tiempos';
 import { Video } from './Video';
+import { VideoV1 } from './v1/Video';
 
 // Cada escena como composición independiente para revisarla sola en el Studio.
-const Sola: React.FC<{ children: React.ReactNode; activa?: number; etiqueta: boolean }> = ({ children, activa, etiqueta }) => (
-  <AbsoluteFill style={{ fontFamily: `${FONT}, sans-serif`, color: '#fff' }}>
-    <Fondo />
-    {children}
-    {etiqueta && <Etiqueta activa={activa} />}
-  </AbsoluteFill>
-);
-const comp = (id: string, dur: number, nodo: React.ReactNode, activa?: number, etiqueta = true) => (
-  <Composition key={id} id={id} component={() => <Sola activa={activa} etiqueta={etiqueta}>{nodo}</Sola>} durationInFrames={dur} fps={FPS} width={ANCHO} height={ALTO} />
+const Sola: React.FC<{ children: React.ReactNode }> = ({ children }) => <AbsoluteFill style={{ fontFamily: `${FONT}, sans-serif`, color: '#fff' }}>{children}</AbsoluteFill>;
+const comp = (id: string, dur: number, nodo: React.ReactNode) => (
+  <Composition key={id} id={id} component={() => <Sola>{nodo}</Sola>} durationInFrames={dur} fps={FPS} width={ANCHO} height={ALTO} />
 );
 
 export const RemotionRoot: React.FC = () => (
   <>
     <Composition id="STEM-siglas" component={Video} durationInFrames={TOTAL} fps={FPS} width={ANCHO} height={ALTO} defaultProps={{ subtitulos: true }} />
-    {comp('E1-letras', ESCENAS.letras.dur, <E1Letras />)}
-    {comp('E2-S-ciencia', ESCENAS.areaS.dur, <E2Area i={0} />, 0)}
-    {comp('E2-T-tecnologia', ESCENAS.areaT.dur, <E2Area i={1} />, 1)}
-    {comp('E2-E-ingenieria', ESCENAS.areaE.dur, <E2Area i={2} />, 2)}
-    {comp('E2-M-matematicas', ESCENAS.areaM.dur, <E2Area i={3} />, 3)}
-    {comp('E3-juntas', ESCENAS.juntas.dur, <E3Juntas />)}
-    {comp('E4-robot', ESCENAS.robot.dur, <E4Robot />)}
-    {comp('E5-personas', ESCENAS.personas.dur, <E5Personas />)}
-    {comp('E6-cierre', ESCENAS.cierre.dur, <E6Cierre />, undefined, false)}
+    <Folder name="escenas">
+      {comp('R1-gancho', ESCENAS.letras.dur, <R1Gancho />)}
+      {comp('R2-S-ciencia', ESCENAS.areaS.dur, <R2Letra i={0} />)}
+      {comp('R2-T-tecnologia', ESCENAS.areaT.dur, <R2Letra i={1} />)}
+      {comp('R2-E-ingenieria', ESCENAS.areaE.dur, <R2Letra i={2} />)}
+      {comp('R2-M-matematicas', ESCENAS.areaM.dur, <R2Letra i={3} />)}
+      {comp('R3-juntas', ESCENAS.juntas.dur, <R3Juntas />)}
+      {comp('R4-robot', ESCENAS.robot.dur, <R4Robot />)}
+      {comp('R5-pregunta', ESCENAS.personas.dur, <R5Pregunta />)}
+      {comp('R6-cierre', ESCENAS.cierre.dur, <R6Cierre />)}
+    </Folder>
+    <Folder name="version-1">
+      <Composition id="STEM-siglas-v1" component={VideoV1} durationInFrames={TOTAL} fps={FPS} width={ANCHO} height={ALTO} defaultProps={{ subtitulos: true }} />
+    </Folder>
   </>
 );

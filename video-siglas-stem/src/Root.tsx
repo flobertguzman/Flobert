@@ -5,6 +5,7 @@ import { ESCENAS, TOTAL } from './tiempos';
 import { Video } from './Video';
 import { VideoV1 } from './v1/Video';
 import { VideoV2 } from './v2/Video';
+import { VideoV3 } from './v3/Video';
 
 // Cada escena como composición propia: es el mismo reel recortado a su tramo (banda, marca y subtítulos incluidos).
 const Tramo: React.FC<{ desde: number; subtitulos: boolean }> = ({ desde, subtitulos }) => (
@@ -24,6 +25,7 @@ export const RemotionRoot: React.FC = () => (
     <Folder name="versiones-anteriores">
       <Composition id="STEM-siglas-v1" component={VideoV1} durationInFrames={900} fps={FPS} width={ANCHO} height={ALTO} defaultProps={{ subtitulos: true }} />
       <Composition id="STEM-siglas-v2" component={VideoV2} durationInFrames={900} fps={FPS} width={ANCHO} height={ALTO} defaultProps={{ subtitulos: true }} />
+      <Composition id="STEM-siglas-v3" component={VideoV3} durationInFrames={TOTAL} fps={FPS} width={ANCHO} height={ALTO} defaultProps={{ subtitulos: true }} />
     </Folder>
   </>
 );

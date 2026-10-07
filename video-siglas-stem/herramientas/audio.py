@@ -199,34 +199,57 @@ CORTES = [7.0, 11.0, 15.3, 19.6, 23.9, 28.2, 35.0, 42.0, 46.8, 53.8, 57.0]
 
 
 def lista_efectos(bloques):
+    """Efectos de la versión 4 (collage): golpes suaves, pops y barridos alineados con cada animación."""
     m = lambda w, d=0.0: momento(bloques, w, d)
+    F = 1 / 30
     ef = []
-    # apertura: las letras de STEM suben una a una (fotogramas 36–60) y entra la banda
-    ef += [(0.7, lambda: brillo(0.35))]
-    ef += [((36 + 6 * k) / 30, (lambda k=k: pop(620 + 90 * k, 0.28))) for k in range(5)]
-    ef += [(1.8, lambda: whoosh(0.9, 0.3)), (3.4, lambda: pop(760, 0.22))]
-    # transiciones suaves entre escenas
-    ef += [(c - 0.3, (lambda: whoosh(0.55, 0.32))) for c in CORTES]
-    # «Cuatro letras…»: las cuatro fichas
-    ef += [(7.0 + (12 + 6 * k) / 30, (lambda k=k: pop(700 + 80 * k, 0.25))) for k in range(4)]
-    # cada letra: palabra en inglés y en español, luego tres o cuatro ejemplos de carreras
-    for ini, en, es, n in ((11.0, 'science', 'ciencia', 3), (15.3, 'technology', 'tecnología', 2), (19.6, 'engineering', 'ingeniería', 4), (23.9, 'mathematics', 'matemáticas', 2)):
-        ef += [(m(en, ini), lambda: pop(820, 0.25)), (m(es, ini), lambda: campana(1046.5, 1.0, 0.35))]
-        ef += [(m(es, ini) + 0.9 + 0.22 * k, (lambda k=k: pop(900 + 60 * k, 0.18))) for k in range(n)]
-    # «Estudian…»: investigar, herramientas, problemas
-    ef += [(m(w, 28.2), lambda: pop(760, 0.3)) for w in ('investigar', 'herramientas', 'problemas')]
-    # ejemplos de carreras
-    ef += [(m(w, 35.0), lambda: pop(820, 0.3)) for w in ('biología', 'informática', 'ingeniería', 'estadística')]
-    # las cuatro fichas se juntan en «juntas»
-    j = m('juntas', 42.0)
-    ef += [(j - 0.6, lambda: riser(0.6, 0.35)), (j, lambda: campana(784.0, 1.4, 0.5)), (j + 0.05, lambda: brillo(0.35))]
-    # robot: cada sumando y el resultado
-    ef += [(m(w, 46.8) - 0.1, lambda: pop(700, 0.35)) for w in ('programación', 'ingeniería', 'matemáticas')]
+    # 0–11 s · apertura continua: ¿Qué son las carreras STEM? → cuatro áreas → cuatro letras que reúnen muchas carreras
+    stem, areas, mundo = m('stem', 1), m('áreas', 3), m('mundo', 3)
+    cuatro, reunen, muchas, carreras = m('cuatro', 7), m('reúnen', 7), m('muchas', 7), m('carreras', 8.5)
+    ef += [(m('qué') - 4 * F, lambda: pop(640, 0.3)), (m('carreras', 1) - 4 * F, lambda: impacto(0.35))]
+    ef += [(stem + (i * 5) * F, (lambda i=i: impacto(0.42))) for i in range(4)]
+    ef += [(stem + 16 * F, lambda: pop(980, 0.4)), (stem + 20 * F, lambda: whoosh(0.5, 0.4))]
+    ef += [(areas + (i * 6 - 4) * F, (lambda i=i: pop(760 + 60 * i, 0.22))) for i in range(4)]
+    ef += [(mundo - 16 * F, lambda: pop(700, 0.3))]
+    ef += [(cuatro - 14 * F, lambda: whoosh(0.45, 0.45)), (cuatro - 4 * F, lambda: pop(620, 0.35)), (reunen - 6 * F, lambda: pop(700, 0.25)), (carreras - 4 * F, lambda: impacto(0.4))]
+    ef += [(muchas + (i * 3) * F, (lambda i=i: pop(640 + 50 * i, 0.2))) for i in range(8)]
+    ef += [(304 * F, lambda: whoosh(0.9, 0.7)), (11.0, lambda: brillo(0.3))]
+    # 11–28,2 s · cada letra: inicial, foto o persona, cinta en inglés, sello en español, ejemplos de carreras
+    for ini, en, es, n, golpe in ((11.0, 'science', 'ciencia', 3, False), (15.3, 'technology', 'tecnología', 2, True), (19.6, 'engineering', 'ingeniería', 4, True), (23.9, 'mathematics', 'matemáticas', 2, True)):
+        te, ts = m(en, ini), m(es, ini)
+        if golpe:
+            ef += [(ini + 2 * F, lambda: impacto(0.4))]
+        ef += [(ini + 8 * F, lambda: pop(520, 0.35)), (te - 8 * F, lambda: pop(980, 0.25)), (te - 6 * F, lambda: whoosh(0.35, 0.45))]
+        ef += [(ts - 6 * F, lambda: pop(1040, 0.25)), (ts - 3 * F, lambda: impacto(0.5)), (ts - 2 * F, lambda: pop(880, 0.45))]
+        ef += [(ts + (40 + 5 * k) * F, (lambda k=k: pop(900 + 70 * k, 0.2))) for k in range(n)]
+    # transiciones (barras, persiana, papel, iris)
+    ef += [(c - 0.36, (lambda: whoosh(0.6, 0.5))) for c in CORTES[1:]]
+    # 28,2–35 s · investigar, crear herramientas, resolver problemas
+    ef += [(28.2 + 20 * F, lambda: whoosh(0.5, 0.35))]
+    for w in ('investigar', 'herramientas', 'problemas'):
+        ef += [(m(w, 28.2) - 6 * F, lambda: impacto(0.42)), (m(w, 28.2) - 5 * F, lambda: pop(760, 0.35))]
+    # 35–42 s · ejemplos de carreras: cada tarjeta entra deslizándose
+    ef += [(35.0 + 16 * F, lambda: whoosh(0.5, 0.35))]
+    for w in ('biología', 'informática', 'ingeniería', 'estadística'):
+        ef += [(m(w, 35.0) - 7 * F, lambda: whoosh(0.3, 0.3)), (m(w, 35.0) - 2 * F, lambda: pop(820, 0.3))]
+    # 42–46,8 s · franjas con carreras → las letras se juntan → TRABAJAN JUNTAS
+    ef += [(42.0 + (22 + i * 4 + k * 6) * F, (lambda i=i, k=k: pop(600 + 60 * i + 40 * k, 0.16))) for i, n in enumerate((3, 2, 4, 2)) for k in range(n)]
+    pero, trabajan, juntas = m('pero', 42), m('trabajan', 42), m('juntas', 42)
+    ef += [(pero - 4 * F, lambda: whoosh(0.55, 0.5)), (trabajan - 4 * F, lambda: impacto(0.42)), (juntas - 18 * F, lambda: riser(0.5, 0.3))]
+    ef += [(juntas - 4 * F, lambda: impacto(0.55)), (juntas - 3 * F, lambda: campana(784.0, 1.3, 0.5))]
+    # 46,8–53,8 s · robot
+    ef += [(46.8 + 6 * F, lambda: pop(620, 0.3)), (m('robot', 46.8) - 6 * F, lambda: impacto(0.4))]
+    ef += [(m(w, 46.8) - 4 * F, lambda: pop(700, 0.38)) for w in ('programación', 'ingeniería', 'matemáticas')]
+    ef += [(m(w, 46.8) - 5 * F, lambda: whoosh(0.3, 0.25)) for w in ('programación', 'ingeniería', 'matemáticas')]
     igual = momento_igual(bloques)
-    ef += [(igual, lambda: campana(880.0, 1.6, 0.6)), (igual + 0.05, lambda: brillo(0.45))]
-    # pregunta y cierre
-    ef += [(53.8 + (14 + 4 * k) / 30, (lambda k=k: pop(800 + 70 * k, 0.25))) for k in range(4)]
-    ef += [(57.25, lambda: brillo(0.6)), (57.55, lambda: campana(1046.5, 1.8, 0.55))]
+    ef += [(igual, lambda: impacto(0.5)), (igual + 0.03, lambda: campana(880.0, 1.6, 0.6)), (igual + 0.08, lambda: brillo(0.45))]
+    # 53,8–57 s · pregunta
+    ef += [(m('qué', 53.5) - 5 * F, lambda: pop(640, 0.3)), (m('te', 53.5) - 5 * F, lambda: pop(720, 0.3)), (53.8 + 2 * F, lambda: whoosh(0.5, 0.4))]
+    ef += [(53.8 + (12 + 4 * k) * F, (lambda k=k: pop(800 + 70 * k, 0.25))) for k in range(4)]
+    ef += [(m('curiosidad', 53.5) - 3 * F, lambda: whoosh(0.45, 0.3))]
+    # 57–60 s · cierre
+    ef += [(57.0 + (3 * k) * F, (lambda k=k: pop(880 + 60 * k, 0.3))) for k in range(4)]
+    ef += [(57.15, lambda: brillo(0.6)), (57.45, lambda: campana(1046.5, 1.8, 0.55))]
     return ef
 
 

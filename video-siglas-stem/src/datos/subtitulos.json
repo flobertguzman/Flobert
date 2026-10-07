@@ -1,346 +1,620 @@
 [
  {
-  "inicio": 0.2,
-  "fin": 1.043,
+  "inicio": 1.0,
+  "fin": 1.633,
+  "palabras": [
+   {
+    "t": "¿Qué",
+    "s": 1.0,
+    "clave": false
+   },
+   {
+    "t": "son",
+    "s": 1.224,
+    "clave": false
+   },
+   {
+    "t": "las",
+    "s": 1.449,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 1.673,
+  "fin": 3.02,
+  "palabras": [
+   {
+    "t": "carreras",
+    "s": 1.673,
+    "clave": false
+   },
+   {
+    "t": "STEM?",
+    "s": 2.346,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 4.0,
+  "fin": 4.825,
+  "palabras": [
+   {
+    "t": "Son",
+    "s": 4.0,
+    "clave": false
+   },
+   {
+    "t": "cuatro",
+    "s": 4.173,
+    "clave": false
+   },
+   {
+    "t": "áreas",
+    "s": 4.519,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 4.865,
+  "fin": 6.7,
+  "palabras": [
+   {
+    "t": "para",
+    "s": 4.865,
+    "clave": false
+   },
+   {
+    "t": "entender",
+    "s": 5.212,
+    "clave": false
+   },
+   {
+    "t": "el",
+    "s": 5.731,
+    "clave": false
+   },
+   {
+    "t": "mundo",
+    "s": 5.904,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 7.4,
+  "fin": 8.243,
   "palabras": [
    {
     "t": "Cuatro",
-    "s": 0.2,
+    "s": 7.4,
     "clave": false
    },
    {
     "t": "letras",
-    "s": 0.553,
+    "s": 7.753,
     "clave": true
    },
    {
     "t": "que",
-    "s": 0.907,
+    "s": 8.107,
     "clave": false
    }
   ]
  },
  {
-  "inicio": 1.083,
-  "fin": 2.77,
+  "inicio": 8.283,
+  "fin": 9.97,
   "palabras": [
    {
     "t": "reúnen",
-    "s": 1.083,
+    "s": 8.283,
     "clave": false
    },
    {
     "t": "muchas",
-    "s": 1.437,
+    "s": 8.637,
     "clave": false
    },
    {
     "t": "carreras",
-    "s": 1.79,
+    "s": 8.99,
     "clave": true
    }
   ]
  },
  {
-  "inicio": 3.1,
-  "fin": 5.45,
+  "inicio": 11.4,
+  "fin": 13.75,
   "palabras": [
    {
     "t": "S,",
-    "s": 3.1,
+    "s": 11.4,
     "clave": false
    },
    {
     "t": "de",
-    "s": 3.726,
+    "s": 12.026,
     "clave": false
    },
    {
     "t": "Science:",
-    "s": 3.942,
+    "s": 12.242,
     "clave": false
    },
    {
     "t": "ciencia",
-    "s": 4.568,
+    "s": 12.868,
     "clave": true
    }
   ]
  },
  {
-  "inicio": 6.1,
-  "fin": 8.88,
+  "inicio": 15.7,
+  "fin": 18.48,
   "palabras": [
    {
     "t": "T,",
-    "s": 6.1,
+    "s": 15.7,
     "clave": false
    },
    {
     "t": "de",
-    "s": 6.59,
+    "s": 16.19,
     "clave": false
    },
    {
     "t": "Technology:",
-    "s": 6.758,
+    "s": 16.358,
     "clave": false
    },
    {
     "t": "tecnología",
-    "s": 7.586,
+    "s": 17.186,
     "clave": true
    }
   ]
  },
  {
-  "inicio": 9.1,
-  "fin": 11.57,
+  "inicio": 20.0,
+  "fin": 22.47,
   "palabras": [
    {
     "t": "E,",
-    "s": 9.1,
+    "s": 20.0,
     "clave": false
    },
    {
     "t": "de",
-    "s": 9.524,
+    "s": 20.424,
     "clave": false
    },
    {
     "t": "Engineering:",
-    "s": 9.671,
+    "s": 20.571,
     "clave": false
    },
    {
     "t": "ingeniería",
-    "s": 10.388,
-    "clave": true
-   }
-  ]
- },
- {
-  "inicio": 12.1,
-  "fin": 14.43,
-  "palabras": [
-   {
-    "t": "M,",
-    "s": 12.1,
-    "clave": false
-   },
-   {
-    "t": "de",
-    "s": 12.495,
-    "clave": false
-   },
-   {
-    "t": "Mathematics:",
-    "s": 12.631,
-    "clave": false
-   },
-   {
-    "t": "matemáticas",
-    "s": 13.299,
-    "clave": true
-   }
-  ]
- },
- {
-  "inicio": 15.05,
-  "fin": 16.018,
-  "palabras": [
-   {
-    "t": "Cada",
-    "s": 15.05,
-    "clave": false
-   },
-   {
-    "t": "área",
-    "s": 15.386,
-    "clave": false
-   },
-   {
-    "t": "tiene",
-    "s": 15.722,
-    "clave": false
-   }
-  ]
- },
- {
-  "inicio": 16.058,
-  "fin": 17.178,
-  "palabras": [
-   {
-    "t": "sus",
-    "s": 16.058,
-    "clave": false
-   },
-   {
-    "t": "propias",
-    "s": 16.226,
-    "clave": false
-   },
-   {
-    "t": "carreras,",
-    "s": 16.562,
-    "clave": false
-   }
-  ]
- },
- {
-  "inicio": 17.218,
-  "fin": 17.85,
-  "palabras": [
-   {
-    "t": "pero",
-    "s": 17.218,
-    "clave": false
-   },
-   {
-    "t": "muchas",
-    "s": 17.554,
-    "clave": false
-   }
-  ]
- },
- {
-  "inicio": 17.89,
-  "fin": 19.18,
-  "palabras": [
-   {
-    "t": "trabajan",
-    "s": 17.89,
-    "clave": false
-   },
-   {
-    "t": "juntas",
-    "s": 18.394,
-    "clave": true
-   }
-  ]
- },
- {
-  "inicio": 19.25,
-  "fin": 20.191,
-  "palabras": [
-   {
-    "t": "Para",
-    "s": 19.25,
-    "clave": false
-   },
-   {
-    "t": "crear",
-    "s": 19.534,
-    "clave": false
-   },
-   {
-    "t": "un",
-    "s": 19.677,
-    "clave": false
-   },
-   {
-    "t": "robot,",
-    "s": 19.819,
-    "clave": true
-   }
-  ]
- },
- {
-  "inicio": 20.231,
-  "fin": 21.457,
-  "palabras": [
-   {
-    "t": "por",
-    "s": 20.231,
-    "clave": false
-   },
-   {
-    "t": "ejemplo,",
-    "s": 20.373,
-    "clave": false
-   },
-   {
-    "t": "se",
-    "s": 20.928,
-    "clave": false
-   },
-   {
-    "t": "combinan",
-    "s": 21.07,
-    "clave": false
-   }
-  ]
- },
- {
-  "inicio": 21.497,
-  "fin": 22.865,
-  "palabras": [
-   {
-    "t": "programación,",
-    "s": 21.497,
-    "clave": true
-   },
-   {
-    "t": "ingeniería",
-    "s": 22.194,
-    "clave": true
-   }
-  ]
- },
- {
-  "inicio": 22.905,
-  "fin": 24.26,
-  "palabras": [
-   {
-    "t": "y",
-    "s": 22.905,
-    "clave": false
-   },
-   {
-    "t": "matemáticas",
-    "s": 23.189,
+    "s": 21.288,
     "clave": true
    }
   ]
  },
  {
   "inicio": 24.3,
-  "fin": 25.075,
+  "fin": 26.63,
   "palabras": [
    {
-    "t": "¿Qué",
+    "t": "M,",
     "s": 24.3,
     "clave": false
    },
    {
-    "t": "área",
-    "s": 24.463,
+    "t": "de",
+    "s": 24.695,
     "clave": false
    },
    {
-    "t": "te",
-    "s": 24.789,
+    "t": "Mathematics:",
+    "s": 24.831,
     "clave": false
    },
    {
-    "t": "da",
-    "s": 24.952,
+    "t": "matemáticas",
+    "s": 25.499,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 28.6,
+  "fin": 29.815,
+  "palabras": [
+   {
+    "t": "Estudian",
+    "s": 28.6,
+    "clave": false
+   },
+   {
+    "t": "cómo",
+    "s": 29.07,
+    "clave": false
+   },
+   {
+    "t": "funciona",
+    "s": 29.384,
     "clave": false
    }
   ]
  },
  {
-  "inicio": 25.115,
-  "fin": 26.38,
+  "inicio": 29.855,
+  "fin": 31.069,
+  "palabras": [
+   {
+    "t": "el",
+    "s": 29.855,
+    "clave": false
+   },
+   {
+    "t": "mundo",
+    "s": 30.011,
+    "clave": true
+   },
+   {
+    "t": "y",
+    "s": 30.325,
+    "clave": false
+   },
+   {
+    "t": "nos",
+    "s": 30.639,
+    "clave": false
+   },
+   {
+    "t": "ayudan",
+    "s": 30.796,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 31.109,
+  "fin": 32.151,
+  "palabras": [
+   {
+    "t": "a",
+    "s": 31.109,
+    "clave": false
+   },
+   {
+    "t": "investigar,",
+    "s": 31.423,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 32.191,
+  "fin": 32.935,
+  "palabras": [
+   {
+    "t": "crear",
+    "s": 32.191,
+    "clave": false
+   },
+   {
+    "t": "herramientas",
+    "s": 32.348,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 32.975,
+  "fin": 34.68,
+  "palabras": [
+   {
+    "t": "y",
+    "s": 32.975,
+    "clave": false
+   },
+   {
+    "t": "resolver",
+    "s": 33.289,
+    "clave": false
+   },
+   {
+    "t": "problemas",
+    "s": 33.76,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 35.4,
+  "fin": 36.365,
+  "palabras": [
+   {
+    "t": "Algunos",
+    "s": 35.4,
+    "clave": false
+   },
+   {
+    "t": "ejemplos",
+    "s": 35.903,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 36.405,
+  "fin": 37.354,
+  "palabras": [
+   {
+    "t": "de",
+    "s": 36.405,
+    "clave": false
+   },
+   {
+    "t": "carreras",
+    "s": 36.573,
+    "clave": false
+   },
+   {
+    "t": "STEM:",
+    "s": 37.076,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 37.394,
+  "fin": 39.164,
+  "palabras": [
+   {
+    "t": "biología,",
+    "s": 37.394,
+    "clave": true
+   },
+   {
+    "t": "informática,",
+    "s": 38.215,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 39.204,
+  "fin": 40.337,
+  "palabras": [
+   {
+    "t": "ingeniería",
+    "s": 39.204,
+    "clave": true
+   },
+   {
+    "t": "civil",
+    "s": 40.042,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 40.377,
+  "fin": 42.0,
+  "palabras": [
+   {
+    "t": "y",
+    "s": 40.377,
+    "clave": false
+   },
+   {
+    "t": "estadística",
+    "s": 40.712,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 42.4,
+  "fin": 43.368,
+  "palabras": [
+   {
+    "t": "Cada",
+    "s": 42.4,
+    "clave": false
+   },
+   {
+    "t": "área",
+    "s": 42.736,
+    "clave": false
+   },
+   {
+    "t": "tiene",
+    "s": 43.072,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 43.408,
+  "fin": 44.528,
+  "palabras": [
+   {
+    "t": "sus",
+    "s": 43.408,
+    "clave": false
+   },
+   {
+    "t": "propias",
+    "s": 43.576,
+    "clave": false
+   },
+   {
+    "t": "carreras,",
+    "s": 43.912,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 44.568,
+  "fin": 45.2,
+  "palabras": [
+   {
+    "t": "pero",
+    "s": 44.568,
+    "clave": false
+   },
+   {
+    "t": "muchas",
+    "s": 44.904,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 45.24,
+  "fin": 46.53,
+  "palabras": [
+   {
+    "t": "trabajan",
+    "s": 45.24,
+    "clave": false
+   },
+   {
+    "t": "juntas",
+    "s": 45.744,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 47.1,
+  "fin": 48.1,
+  "palabras": [
+   {
+    "t": "Para",
+    "s": 47.1,
+    "clave": false
+   },
+   {
+    "t": "crear",
+    "s": 47.402,
+    "clave": false
+   },
+   {
+    "t": "un",
+    "s": 47.552,
+    "clave": false
+   },
+   {
+    "t": "robot,",
+    "s": 47.703,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 48.14,
+  "fin": 49.442,
+  "palabras": [
+   {
+    "t": "por",
+    "s": 48.14,
+    "clave": false
+   },
+   {
+    "t": "ejemplo,",
+    "s": 48.291,
+    "clave": false
+   },
+   {
+    "t": "se",
+    "s": 48.879,
+    "clave": false
+   },
+   {
+    "t": "combinan",
+    "s": 49.03,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 49.482,
+  "fin": 50.935,
+  "palabras": [
+   {
+    "t": "programación,",
+    "s": 49.482,
+    "clave": true
+   },
+   {
+    "t": "ingeniería",
+    "s": 50.221,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 50.975,
+  "fin": 52.48,
+  "palabras": [
+   {
+    "t": "y",
+    "s": 50.975,
+    "clave": false
+   },
+   {
+    "t": "matemáticas",
+    "s": 51.276,
+    "clave": true
+   }
+  ]
+ },
+ {
+  "inicio": 54.1,
+  "fin": 54.875,
+  "palabras": [
+   {
+    "t": "¿Qué",
+    "s": 54.1,
+    "clave": false
+   },
+   {
+    "t": "área",
+    "s": 54.263,
+    "clave": false
+   },
+   {
+    "t": "te",
+    "s": 54.589,
+    "clave": false
+   },
+   {
+    "t": "da",
+    "s": 54.752,
+    "clave": false
+   }
+  ]
+ },
+ {
+  "inicio": 54.915,
+  "fin": 56.18,
   "palabras": [
    {
     "t": "más",
-    "s": 25.115,
+    "s": 54.915,
     "clave": false
    },
    {
     "t": "curiosidad?",
-    "s": 25.278,
+    "s": 55.078,
     "clave": true
    }
   ]

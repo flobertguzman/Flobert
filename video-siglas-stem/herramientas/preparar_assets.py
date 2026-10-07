@@ -36,6 +36,18 @@ def sticker(entrada: Path, salida: Path, borde: int = 13, escala: float = 1.0):
     print('sticker', salida.name, blanco.size)
 
 
+def natural(entrada: Path, salida: Path):
+    """Recorte limpio, sin borde de sticker (estilo de la línea gráfica aprobada): solo quita manchas sueltas."""
+    im = Image.open(entrada).convert('RGBA')
+    binario = im.getchannel('A').point(lambda v: 255 if v > 40 else 0)
+    cuerpo = binario.filter(ImageFilter.MinFilter(15)).filter(ImageFilter.MaxFilter(15)).filter(ImageFilter.MaxFilter(31))
+    alfa = Image.fromarray((np.asarray(im.getchannel('A'), dtype=float) * (np.asarray(cuerpo) > 0)).astype('uint8'))
+    im.putalpha(alfa)
+    im = im.crop(im.getbbox())
+    im.save(salida, optimize=True)
+    print('persona', salida.name, im.size)
+
+
 def fotos():
     banda = Image.open(PUB / 'car' / 'banda_b.png').convert('RGB')
     cajas = {
@@ -76,5 +88,9 @@ if __name__ == '__main__':
     sticker(ORIG / 'pareja_senalando.webp', PUB / 'stickers' / 'pareja_senalando.png')
     sticker(ORIG / 'elias_calculadora.webp', PUB / 'stickers' / 'elias_calculadora.png')
     sticker(ORIG / 'camila_vr.webp', PUB / 'stickers' / 'camila_vr.png')
+    (PUB / 'personas').mkdir(exist_ok=True)
+    natural(ORIG / 'pareja_senalando.webp', PUB / 'personas' / 'pareja_senalando.png')
+    natural(ORIG / 'elias_calculadora.webp', PUB / 'personas' / 'elias_calculadora.png')
+    natural(ORIG / 'camila_vr.webp', PUB / 'personas' / 'camila_vr.png')
     fotos()
     papel()

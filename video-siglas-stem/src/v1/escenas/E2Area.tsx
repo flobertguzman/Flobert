@@ -1,7 +1,7 @@
 import { spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { BandaZona } from '../componentes/BandaZona';
 import { C, X, rampa, salida } from '../../marca';
-import { AREAS } from '../../tiempos';
+import { AREAS } from '../tiempos30';
 
 /**
  * 3 s por letra: la inicial golpea → aparece la palabra en inglés (con la inicial resaltada)

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Banda sonora del video «Significado de las siglas STEM» (30 s).
+"""Banda sonora del reel «Significado de las siglas STEM» (60 s).
 
 Entradas : audio/voz_original/*.mp3  (locución generada por frases)
-Salidas  : entregables/locucion_30s.wav          voz sola, alineada a las escenas
-           entregables/musica_y_efectos_30s.wav  música + efectos, sin voz
-           entregables/mezcla_30s.wav            mezcla final (música baja 11 dB bajo la voz)
+Salidas  : entregables/locucion_60s.wav          voz sola, alineada a las escenas
+           entregables/musica_y_efectos_60s.wav  música + efectos, sin voz
+           entregables/mezcla_60s.wav            mezcla final (música baja 11 dB bajo la voz)
            src/datos/subtitulos.json             tiempos palabra por palabra (los lee Remotion)
            entregables/guion_tiempos.srt         subtítulos por bloque
 
@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 
 SR = 48000
-DUR = 30.0
+DUR = 60.0
 RAIZ = Path(__file__).resolve().parent.parent
 VOZ = RAIZ / 'audio' / 'voz_original'
 SALIDA = RAIZ / 'entregables'
@@ -28,14 +28,18 @@ MARGEN = 0.03  # segundos de aire que se conservan antes y después de cada fras
 
 # (archivo, inicio de la voz en s, tempo, bloques de subtítulo; *palabra* = palabra clave)
 FRASES = [
-    ('01_gancho', 0.20, 1.00, ['Cuatro *letras* que', 'reúnen muchas *carreras*']),
-    ('02_S', 3.10, 1.00, ['S, de Science: *ciencia*']),
-    ('03_T', 6.10, 1.00, ['T, de Technology: *tecnología*']),
-    ('04_E', 9.10, 1.00, ['E, de Engineering: *ingeniería*']),
-    ('05_M', 12.10, 1.00, ['M, de Mathematics: *matemáticas*']),
-    ('06_juntas', 15.05, 1.00, ['Cada área tiene', 'sus propias carreras,', 'pero muchas', 'trabajan *juntas*']),
-    ('07_robot', 19.25, 1.07, ['Para crear un *robot*,', 'por ejemplo, se combinan', '*programación*, *ingeniería*', 'y *matemáticas*']),
-    ('08_pregunta', 24.30, 1.00, ['¿Qué área te da', 'más *curiosidad*?']),
+    ('00a_que_son', 1.0, 1.00, ['¿Qué son las', 'carreras *STEM*?']),
+    ('00b_cuatro_areas', 4.0, 1.00, ['Son cuatro *áreas*', 'para entender el *mundo*']),
+    ('01_gancho', 7.4, 1.00, ['Cuatro *letras* que', 'reúnen muchas *carreras*']),
+    ('02_S', 11.4, 1.00, ['S, de Science: *ciencia*']),
+    ('03_T', 15.7, 1.00, ['T, de Technology: *tecnología*']),
+    ('04_E', 20.0, 1.00, ['E, de Engineering: *ingeniería*']),
+    ('05_M', 24.3, 1.00, ['M, de Mathematics: *matemáticas*']),
+    ('05b_estudian', 28.6, 1.00, ['Estudian cómo funciona', 'el *mundo* y nos ayudan', 'a *investigar*,', 'crear *herramientas*', 'y resolver *problemas*']),
+    ('05c_ejemplos', 35.4, 1.00, ['Algunos ejemplos', 'de carreras *STEM*:', '*biología*, *informática*,', '*ingeniería* *civil*', 'y *estadística*']),
+    ('06_juntas', 42.4, 1.00, ['Cada área tiene', 'sus propias carreras,', 'pero muchas', 'trabajan *juntas*']),
+    ('07_robot', 47.1, 1.00, ['Para crear un *robot*,', 'por ejemplo, se combinan', '*programación*, *ingeniería*', 'y *matemáticas*']),
+    ('08_pregunta', 54.1, 1.00, ['¿Qué área te da', 'más *curiosidad*?']),
 ]
 
 rng = np.random.default_rng(7)
@@ -181,59 +185,64 @@ def brillo(vol=1.0):
 
 
 # (segundo, función) — alineados con la línea de tiempo de src/tiempos.ts
-def _f(fr):
-    return fr / 30
+def momento(bloques, palabra, desde=0.0):
+    """Segundo en que la voz empieza a decir `palabra` (primera aparición desde `desde`)."""
+    for b in bloques:
+        for p in b['palabras']:
+            if p['s'] >= desde and re.sub(r'[^\wáéíóúüñ]', '', p['t'].lower()) == palabra:
+                return p['s']
+    raise KeyError(palabra)
 
 
-EFECTOS = [
-    # 0–3 s · apertura: una palabra por plano (fotogramas 5, 16, 27, 32, 43, 54) y S·T·E·M en ráfaga
-    (_f(5), lambda: impacto(1.0)), (_f(16), lambda: impacto(0.9)),
-    *[(_f(17 + 2 * k), (lambda k=k: pop(700 + 90 * k, 0.45))) for k in range(4)],
-    (_f(27), lambda: impacto(0.8)), (_f(32), lambda: impacto(0.95)), (_f(33), lambda: whoosh(0.28, 0.45)),
-    (_f(43), lambda: impacto(0.9)), (_f(42), lambda: whoosh(0.35, 0.55)),
-    (_f(54), lambda: impacto(1.0)),
-    *[(_f(55 + 2 * k), (lambda k=k: pop(620 + 70 * k, 0.4))) for k in range(8)],
-    *[(_f(72 + 4 * k), (lambda: impacto(0.85))) for k in range(4)],
-    (_f(83), lambda: whoosh(0.32, 0.8)),
-    # 3–15 s · cada letra: foto o persona, cinta en inglés, etiquetas y sello en español
-    *[c for t0, en, es, golpe in ((90, 23, 42, False), (180, 18, 43, True), (270, 15, 37, True), (360, 14, 34, True)) for c in (
-        *([(_f(t0 + 2), lambda: impacto(0.75))] if golpe else []),
-        (_f(t0 + 5), lambda: pop(520, 0.55)),
-        (_f(t0 + en - 5), lambda: pop(980, 0.35)),
-        (_f(t0 + en - 4), lambda: whoosh(0.3, 0.55)),
-        (_f(t0 + es - 2), lambda: pop(1040, 0.35)),
-        (_f(t0 + es), lambda: impacto(0.8)), (_f(t0 + es + 1), lambda: pop(880, 0.6)),
-    )],
-    (_f(172), lambda: whoosh(0.45, 0.7)), (_f(263), lambda: whoosh(0.4, 0.6)), (_f(352), lambda: whoosh(0.45, 0.7, sube=False)),
-    # 15–19 s · franjas con carreras → las letras se juntan → TRABAJAN · JUNTAS
-    (_f(446), lambda: whoosh(0.3, 0.6)), (_f(451), lambda: impacto(0.6)),
-    *[(_f(450 + 20 + i * 4 + k * 5), (lambda i=i, k=k: pop(600 + 60 * i + 40 * k, 0.3))) for i, n in enumerate((3, 2, 4, 2)) for k in range(n)],
-    (_f(450 + 60), lambda: whoosh(0.55, 0.7)), (_f(450 + 84), lambda: impacto(0.8)),
-    (_f(450 + 86), lambda: impacto(0.9)), (_f(450 + 101), lambda: impacto(1.0)), (_f(450 + 102), lambda: campana(784.0, 1.2, 0.7)),
-    (_f(561), lambda: whoosh(0.45, 0.6)),
-    # 19–24,4 s · robot: plano, cortes por palabra y «= un robot»
-    (_f(570 + 6), lambda: impacto(0.7)), (_f(570 + 22), lambda: impacto(0.9)),
-    (_f(570 + 72), lambda: impacto(0.85)), (_f(570 + 74), lambda: pop(620, 0.7)),
-    (_f(570 + 93), lambda: impacto(0.85)), (_f(570 + 95), lambda: pop(700, 0.7)),
-    (_f(570 + 123), lambda: impacto(0.85)), (_f(570 + 125), lambda: pop(780, 0.7)),
-    (_f(570 + 140), lambda: impacto(1.0)), (_f(570 + 142), lambda: campana(880.0, 1.6, 0.9)), (_f(570 + 143), lambda: brillo(0.55)),
-    (_f(725), lambda: whoosh(0.35, 0.6)),
-    # 24,4–27 s · pregunta: titulares, Camila y Elías, las cuatro opciones
-    (_f(732), lambda: impacto(0.8)), (_f(733), lambda: whoosh(0.4, 0.5)),
-    *[(_f(732 + 8 + 3 * k), (lambda k=k: pop(760 + 80 * k, 0.45))) for k in range(4)],
-    (_f(732 + 12), lambda: impacto(0.75)), (_f(732 + 24), lambda: whoosh(0.4, 0.35)),
-    (_f(802), lambda: whoosh(0.45, 0.65)),
-    # 27–30 s · cierre
-    *[(_f(810 + 2 * k), (lambda k=k: pop(880 + 60 * k, 0.4))) for k in range(4)],
-    (_f(814), lambda: brillo(0.8)), (_f(818), lambda: campana(1046.5, 1.8, 0.8)),
-]
+# Cortes entre escenas (s); deben coincidir con src/tiempos.ts
+CORTES = [7.0, 11.0, 15.3, 19.6, 23.9, 28.2, 35.0, 42.0, 46.8, 53.8, 57.0]
 
 
-def efectos():
+def lista_efectos(bloques):
+    m = lambda w, d=0.0: momento(bloques, w, d)
+    ef = []
+    # apertura: las letras de STEM suben una a una (fotogramas 36–60) y entra la banda
+    ef += [(0.7, lambda: brillo(0.35))]
+    ef += [((36 + 6 * k) / 30, (lambda k=k: pop(620 + 90 * k, 0.28))) for k in range(5)]
+    ef += [(1.8, lambda: whoosh(0.9, 0.3)), (3.4, lambda: pop(760, 0.22))]
+    # transiciones suaves entre escenas
+    ef += [(c - 0.3, (lambda: whoosh(0.55, 0.32))) for c in CORTES]
+    # «Cuatro letras…»: las cuatro fichas
+    ef += [(7.0 + (12 + 6 * k) / 30, (lambda k=k: pop(700 + 80 * k, 0.25))) for k in range(4)]
+    # cada letra: palabra en inglés y en español, luego tres o cuatro ejemplos de carreras
+    for ini, en, es, n in ((11.0, 'science', 'ciencia', 3), (15.3, 'technology', 'tecnología', 2), (19.6, 'engineering', 'ingeniería', 4), (23.9, 'mathematics', 'matemáticas', 2)):
+        ef += [(m(en, ini), lambda: pop(820, 0.25)), (m(es, ini), lambda: campana(1046.5, 1.0, 0.35))]
+        ef += [(m(es, ini) + 0.9 + 0.22 * k, (lambda k=k: pop(900 + 60 * k, 0.18))) for k in range(n)]
+    # «Estudian…»: investigar, herramientas, problemas
+    ef += [(m(w, 28.2), lambda: pop(760, 0.3)) for w in ('investigar', 'herramientas', 'problemas')]
+    # ejemplos de carreras
+    ef += [(m(w, 35.0), lambda: pop(820, 0.3)) for w in ('biología', 'informática', 'ingeniería', 'estadística')]
+    # las cuatro fichas se juntan en «juntas»
+    j = m('juntas', 42.0)
+    ef += [(j - 0.6, lambda: riser(0.6, 0.35)), (j, lambda: campana(784.0, 1.4, 0.5)), (j + 0.05, lambda: brillo(0.35))]
+    # robot: cada sumando y el resultado
+    ef += [(m(w, 46.8) - 0.1, lambda: pop(700, 0.35)) for w in ('programación', 'ingeniería', 'matemáticas')]
+    igual = momento_igual(bloques)
+    ef += [(igual, lambda: campana(880.0, 1.6, 0.6)), (igual + 0.05, lambda: brillo(0.45))]
+    # pregunta y cierre
+    ef += [(53.8 + (14 + 4 * k) / 30, (lambda k=k: pop(800 + 70 * k, 0.25))) for k in range(4)]
+    ef += [(57.25, lambda: brillo(0.6)), (57.55, lambda: campana(1046.5, 1.8, 0.55))]
+    return ef
+
+
+def momento_igual(bloques):
+    """«= un robot» aparece justo después de que termina la frase del robot."""
+    for b in bloques:
+        if b['palabras'][-1]['t'].startswith('matemáticas') and b['inicio'] > 47:
+            return round(b['fin'] - 0.25, 3)
+    raise KeyError('robot')
+
+
+def efectos(bloques):
     pista = np.zeros(int(DUR * SR))
-    for s, fn in EFECTOS:
+    for t, fn in lista_efectos(bloques):
         x = fn()
-        a = int(s * SR)
+        a = int(t * SR)
         pista[a:a + len(x)] += x[:len(pista) - a]
     return pista
 
@@ -268,11 +277,11 @@ def palmada(vol=1.0):
     return y * 0.06 * vol
 
 
-CORTE_MUSICA = (23.15, 23.67)  # se vacía el ritmo justo antes del «= un robot»
+CORTE_MUSICA = [0.0, 0.0]  # se vacía el ritmo justo antes del «= un robot» (se fija en main)
 
 
 def musica():
-    bpm = 116
+    bpm = 100
     beat = 60 / bpm
     bar = 4 * beat
     out = np.zeros(int(DUR * SR))
@@ -303,16 +312,16 @@ def musica():
             if libre(ts):
                 tn = tiempo(0.35)
                 fr = 46 + 90 * np.exp(-tn * 30)
-                sumar(out, np.sin(2 * np.pi * np.cumsum(fr) / SR) * np.exp(-tn * 10) * (0.2 if ts < 3 else 0.25), int(ts * SR))
-            if i in (1, 3) and ts >= 3 and libre(ts):  # palmas en 2 y 4
+                sumar(out, np.sin(2 * np.pi * np.cumsum(fr) / SR) * np.exp(-tn * 10) * (0.14 if ts < 7 else 0.2), int(ts * SR))
+            if i in (1, 3) and ts >= 11 and libre(ts):  # palmas en 2 y 4
                 sumar(out, palmada(), int(ts * SR))
         for i in range(16):  # charles: corcheas desde los 3 s, semicorcheas desde los 15 s
             ts = t0 + i * beat / 4
-            if ts >= 3 and libre(ts) and (i % 2 == 1 or ts >= 15):
+            if ts >= 7 and libre(ts) and (i % 2 == 1 or 42.0 <= ts < 57.0):
                 tn = tiempo(0.05)
                 sumar(out, np.diff(rng.standard_normal(len(tn) + 1)) * np.exp(-tn * 90) * (0.045 if i % 2 else 0.025), int(ts * SR))
-    for ts, d in ((14.0, 1.0), (CORTE_MUSICA[1] - 1.0, 1.0)):
-        sumar(out, riser(d, 0.9), int(ts * SR))
+    for ts, d in ((41.0, 1.0), (CORTE_MUSICA[1] - 1.0, 1.0)):
+        sumar(out, riser(d, 0.6), int(ts * SR))
     d = int(beat * 0.75 * SR)
     eco = out.copy()
     for k, g in ((1, 0.28), (2, 0.12)):
@@ -363,18 +372,20 @@ def main():
     voz, bloques = construir_voz()
     voz *= 10 ** ((-19 - rms_db(voz[np.abs(voz) > 0.01])) / 20)  # voz a ≈ −19 dB RMS mientras habla
 
-    fx = efectos()
+    igual = momento_igual(bloques)
+    CORTE_MUSICA[:] = [igual - 0.5, igual]
+    fx = efectos(bloques)
     mus = musica()
     mus *= 10 ** ((-23 - rms_db(mus)) / 20)
     fx *= 10 ** ((-6.5 - 20 * np.log10(np.abs(fx).max() + 1e-9)) / 20)
     base = mus * ducking(voz) + fx * 0.85
 
-    escribir_wav(SALIDA / 'locucion_30s.wav', a_estereo(voz))
-    escribir_wav(SALIDA / 'musica_y_efectos_30s.wav', a_estereo(np.tanh(base)))
+    escribir_wav(SALIDA / 'locucion_60s.wav', a_estereo(voz))
+    escribir_wav(SALIDA / 'musica_y_efectos_60s.wav', a_estereo(np.tanh(base)))
     mezcla = np.tanh(voz + base)
     tmp = SALIDA / '_mezcla_cruda.wav'
     escribir_wav(tmp, a_estereo(mezcla), 24)
-    masterizar(tmp, SALIDA / 'mezcla_30s.wav')
+    masterizar(tmp, SALIDA / 'mezcla_60s.wav')
     tmp.unlink()
 
     (DATOS / 'subtitulos.json').write_text(json.dumps(bloques, ensure_ascii=False, indent=1), encoding='utf-8')

@@ -1,72 +1,50 @@
-import { AbsoluteFill, Img, Sequence, staticFile } from 'remotion';
+import { AbsoluteFill, Sequence } from 'remotion';
+import { Banda, Fondo, Marca, tramo } from './componentes/base';
 import { Subtitulos } from './componentes/Subtitulos';
-import { Transicion } from './componentes/Transicion';
-import { R1Gancho } from './escenas/R1Gancho';
-import { R2Letra } from './escenas/R2Letra';
-import { R3Juntas } from './escenas/R3Juntas';
-import { R4Robot } from './escenas/R4Robot';
-import { R5Pregunta } from './escenas/R5Pregunta';
-import { R6Cierre } from './escenas/R6Cierre';
+import { A1Apertura } from './escenas/A1Apertura';
+import { A2Letras } from './escenas/A2Letras';
+import { A3Letra } from './escenas/A3Letra';
+import { A4Mundo } from './escenas/A4Mundo';
+import { A5Ejemplos } from './escenas/A5Ejemplos';
+import { A6Juntas } from './escenas/A6Juntas';
+import { A7Robot } from './escenas/A7Robot';
+import { A8Pregunta } from './escenas/A8Pregunta';
+import { A9Cierre } from './escenas/A9Cierre';
 import { FONT } from './fonts';
-import { C } from './marca';
-import { ESCENAS } from './tiempos';
+import type { NombreEscena } from './tiempos';
 
 export type PropsVideo = { subtitulos: boolean };
 
-const seq = (k: keyof typeof ESCENAS) => ({ from: ESCENAS[k].from, durationInFrames: ESCENAS[k].dur, name: k });
-const corte = (en: number, mitad: number) => ({ from: en - mitad, durationInFrames: mitad * 2, name: `transición ${en}` });
+type PropsEscena = { dur: number; inicio: number };
+const ESCENAS_REEL: [NombreEscena, React.FC<PropsEscena>][] = [
+  ['apertura', A1Apertura],
+  ['letras', A2Letras],
+  ['areaS', (p) => <A3Letra i={0} {...p} />],
+  ['areaT', (p) => <A3Letra i={1} {...p} />],
+  ['areaE', (p) => <A3Letra i={2} {...p} />],
+  ['areaM', (p) => <A3Letra i={3} {...p} />],
+  ['mundo', A4Mundo],
+  ['ejemplos', A5Ejemplos],
+  ['juntas', A6Juntas],
+  ['robot', A7Robot],
+  ['pregunta', A8Pregunta],
+  ['cierre', A9Cierre],
+];
 
-/** Reel «Significado de las siglas STEM»: collage editorial, cortes rápidos y tipografía cinética. */
+/** Reel de 60 s «¿Qué son las carreras STEM?»: fondo y banda continuos, escenas que se encadenan con deslizamientos y fundidos. */
 export const Video: React.FC<PropsVideo> = ({ subtitulos }) => (
-  <AbsoluteFill style={{ fontFamily: `${FONT}, sans-serif`, color: '#fff', background: C.fondoB }}>
-    <Sequence {...seq('letras')}>
-      <R1Gancho />
-    </Sequence>
-    {(['areaS', 'areaT', 'areaE', 'areaM'] as const).map((k, i) => (
-      <Sequence key={k} {...seq(k)}>
-        <R2Letra i={i} />
-      </Sequence>
-    ))}
-    <Sequence {...seq('juntas')}>
-      <R3Juntas />
-    </Sequence>
-    <Sequence {...seq('robot')}>
-      <R4Robot />
-    </Sequence>
-    <Sequence {...seq('personas')}>
-      <R5Pregunta />
-    </Sequence>
-    <Sequence {...seq('cierre')}>
-      <R6Cierre />
-    </Sequence>
-
-    <Sequence {...corte(90, 3)}>
-      <Transicion tipo="flash" mitad={3} />
-    </Sequence>
-    <Sequence {...corte(180, 8)}>
-      <Transicion tipo="barras" mitad={8} colores={[C.acento, C.azul, C.fondoB]} />
-    </Sequence>
-    <Sequence {...corte(270, 7)}>
-      <Transicion tipo="persiana" mitad={7} colores={['#1F4596']} />
-    </Sequence>
-    <Sequence {...corte(360, 8)}>
-      <Transicion tipo="papel" mitad={8} />
-    </Sequence>
-    <Sequence {...corte(450, 3)}>
-      <Transicion tipo="flash" mitad={3} />
-    </Sequence>
-    <Sequence {...corte(570, 9)}>
-      <Transicion tipo="iris" mitad={9} colores={['#1F4596']} />
-    </Sequence>
-    <Sequence {...corte(732, 3)}>
-      <Transicion tipo="flash" mitad={3} />
-    </Sequence>
-    <Sequence {...corte(810, 8)}>
-      <Transicion tipo="barras" mitad={8} colores={[C.blanco, C.acento, C.fondoA]} />
-    </Sequence>
-
-    {/* grano común para unificar el acabado */}
-    <Img src={staticFile('textura.png')} style={{ position: 'absolute', inset: 0, width: 1080, height: 1920, objectFit: 'none', opacity: 0.16, mixBlendMode: 'soft-light' }} />
+  <AbsoluteFill style={{ fontFamily: `${FONT}, sans-serif`, color: '#fff' }}>
+    <Fondo />
+    <Banda />
+    {ESCENAS_REEL.map(([k, Componente]) => {
+      const { inicio, ...seq } = tramo(k);
+      return (
+        <Sequence key={k} {...seq}>
+          <Componente dur={seq.durationInFrames} inicio={inicio} />
+        </Sequence>
+      );
+    })}
+    <Marca />
     {subtitulos && <Subtitulos />}
   </AbsoluteFill>
 );

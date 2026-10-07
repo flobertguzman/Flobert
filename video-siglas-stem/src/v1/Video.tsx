@@ -9,7 +9,7 @@ import { E4Robot } from './escenas/E4Robot';
 import { E5Personas } from './escenas/E5Personas';
 import { E6Cierre } from './escenas/E6Cierre';
 import { FONT } from '../fonts';
-import { ESCENAS } from '../tiempos';
+import { ESCENAS } from './tiempos30';
 
 export type PropsVideoV1 = { subtitulos: boolean };
 

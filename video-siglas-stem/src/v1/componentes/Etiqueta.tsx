@@ -1,6 +1,6 @@
 import { useCurrentFrame } from 'remotion';
 import { C, X, rampa } from '../../marca';
-import { ESCENAS } from '../../tiempos';
+import { ESCENAS } from '../tiempos30';
 
 /** Etiqueta superior «ACELERADORES STEM» con guion rojo + indicador S T E M (activa = índice resaltado). */
 export const Etiqueta: React.FC<{ top?: number; activa?: number; opacidad?: number }> = ({ top = 150, activa, opacidad = 1 }) => (

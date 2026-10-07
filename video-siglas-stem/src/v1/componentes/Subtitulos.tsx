@@ -1,5 +1,5 @@
 import { spring, useCurrentFrame, useVideoConfig } from 'remotion';
-import bloques from '../../datos/subtitulos.json';
+import bloques from '../subtitulos30.json';
 import { C, FPS, rampa } from '../../marca';
 
 type Bloque = { inicio: number; fin: number; palabras: { t: string; s: number; clave: boolean }[] };

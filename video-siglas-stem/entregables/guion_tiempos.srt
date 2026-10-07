@@ -1,63 +1,119 @@
 1
-00:00:00,200 --> 00:00:01,043
-Cuatro letras que
+00:00:01,000 --> 00:00:01,633
+¿Qué son las
 
 2
-00:00:01,083 --> 00:00:02,770
-reúnen muchas carreras
+00:00:01,673 --> 00:00:03,020
+carreras STEM?
 
 3
-00:00:03,100 --> 00:00:05,450
-S, de Science: ciencia
+00:00:04,000 --> 00:00:04,825
+Son cuatro áreas
 
 4
-00:00:06,100 --> 00:00:08,880
-T, de Technology: tecnología
+00:00:04,865 --> 00:00:06,700
+para entender el mundo
 
 5
-00:00:09,100 --> 00:00:11,570
-E, de Engineering: ingeniería
+00:00:07,400 --> 00:00:08,243
+Cuatro letras que
 
 6
-00:00:12,100 --> 00:00:14,430
-M, de Mathematics: matemáticas
+00:00:08,283 --> 00:00:09,970
+reúnen muchas carreras
 
 7
-00:00:15,050 --> 00:00:16,018
-Cada área tiene
+00:00:11,400 --> 00:00:13,750
+S, de Science: ciencia
 
 8
-00:00:16,058 --> 00:00:17,178
-sus propias carreras,
+00:00:15,700 --> 00:00:18,480
+T, de Technology: tecnología
 
 9
-00:00:17,218 --> 00:00:17,850
-pero muchas
+00:00:20,000 --> 00:00:22,470
+E, de Engineering: ingeniería
 
 10
-00:00:17,890 --> 00:00:19,180
-trabajan juntas
+00:00:24,300 --> 00:00:26,630
+M, de Mathematics: matemáticas
 
 11
-00:00:19,250 --> 00:00:20,191
-Para crear un robot,
+00:00:28,600 --> 00:00:29,815
+Estudian cómo funciona
 
 12
-00:00:20,231 --> 00:00:21,457
-por ejemplo, se combinan
+00:00:29,855 --> 00:00:31,069
+el mundo y nos ayudan
 
 13
-00:00:21,497 --> 00:00:22,865
-programación, ingeniería
+00:00:31,109 --> 00:00:32,151
+a investigar,
 
 14
-00:00:22,905 --> 00:00:24,260
-y matemáticas
+00:00:32,191 --> 00:00:32,935
+crear herramientas
 
 15
-00:00:24,300 --> 00:00:25,075
-¿Qué área te da
+00:00:32,975 --> 00:00:34,680
+y resolver problemas
 
 16
-00:00:25,115 --> 00:00:26,380
+00:00:35,400 --> 00:00:36,365
+Algunos ejemplos
+
+17
+00:00:36,405 --> 00:00:37,354
+de carreras STEM:
+
+18
+00:00:37,394 --> 00:00:39,164
+biología, informática,
+
+19
+00:00:39,204 --> 00:00:40,337
+ingeniería civil
+
+20
+00:00:40,377 --> 00:00:42,000
+y estadística
+
+21
+00:00:42,400 --> 00:00:43,368
+Cada área tiene
+
+22
+00:00:43,408 --> 00:00:44,528
+sus propias carreras,
+
+23
+00:00:44,568 --> 00:00:45,200
+pero muchas
+
+24
+00:00:45,240 --> 00:00:46,530
+trabajan juntas
+
+25
+00:00:47,100 --> 00:00:48,100
+Para crear un robot,
+
+26
+00:00:48,140 --> 00:00:49,442
+por ejemplo, se combinan
+
+27
+00:00:49,482 --> 00:00:50,935
+programación, ingeniería
+
+28
+00:00:50,975 --> 00:00:52,480
+y matemáticas
+
+29
+00:00:54,100 --> 00:00:54,875
+¿Qué área te da
+
+30
+00:00:54,915 --> 00:00:56,180
 más curiosidad?

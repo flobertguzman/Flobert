@@ -205,7 +205,7 @@
  },
  {
   "inicio": 24.3,
-  "fin": 26.63,
+  "fin": 27.26,
   "palabras": [
    {
     "t": "M,",
@@ -214,17 +214,17 @@
    },
    {
     "t": "de",
-    "s": 24.695,
+    "s": 24.827,
     "clave": false
    },
    {
     "t": "Mathematics:",
-    "s": 24.831,
+    "s": 25.009,
     "clave": false
    },
    {
     "t": "matemáticas",
-    "s": 25.499,
+    "s": 25.901,
     "clave": true
    }
   ]

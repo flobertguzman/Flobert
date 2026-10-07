@@ -147,8 +147,11 @@ export const Sello: React.FC<{
   );
 };
 
-/** Etiqueta pequeña tipo rótulo («EN INGLÉS», «EN ESPAÑOL», carreras). */
-export const Tag: React.FC<{ texto: string; fondo: string; color: string; left: number; top: number; rot?: number; entra: number; tam?: number }> = ({
+/**
+ * Etiqueta pequeña tipo rótulo («EN INGLÉS», «EN ESPAÑOL», carreras).
+ * `borde` (normalmente blanco) la separa del fondo cuando el color de la etiqueta se parece al de lo que hay detrás.
+ */
+export const Tag: React.FC<{ texto: string; fondo: string; color: string; left: number; top: number; rot?: number; entra: number; tam?: number; borde?: string }> = ({
   texto,
   fondo,
   color,
@@ -157,11 +160,31 @@ export const Tag: React.FC<{ texto: string; fondo: string; color: string; left: 
   rot = -3,
   entra,
   tam = 28,
+  borde,
 }) => {
   const f = useCurrentFrame();
   const t = rampa(f, entra, entra + 12, salida);
   return (
-    <div style={{ position: 'absolute', left, top, rotate: `${rot}deg`, scale: String(0.7 + 0.3 * t), opacity: t, transformOrigin: '0% 50%', padding: `${tam * 0.32}px ${tam * 0.6}px`, background: fondo, color, fontWeight: 700, fontSize: tam, letterSpacing: tam * 0.12, lineHeight: 1, whiteSpace: 'nowrap' }}>
+    <div
+      style={{
+        position: 'absolute',
+        left,
+        top,
+        rotate: `${rot}deg`,
+        scale: String(0.7 + 0.3 * t),
+        opacity: t,
+        transformOrigin: '0% 50%',
+        padding: `${tam * 0.32}px ${tam * 0.6}px`,
+        background: fondo,
+        color,
+        fontWeight: 700,
+        fontSize: tam,
+        letterSpacing: tam * 0.12,
+        lineHeight: 1,
+        whiteSpace: 'nowrap',
+        border: borde ? `3px solid ${borde}` : undefined,
+      }}
+    >
       {texto}
     </div>
   );
@@ -204,13 +227,19 @@ export const Trazo: React.FC<{ d: string; color: string; ancho?: number; desde: 
   );
 };
 
-/** Letra gigante con relleno de trama (semitono), sin sombra. */
+/**
+ * Letra gigante con relleno de trama (semitono), sin sombra.
+ * Con `background-clip: text` solo se pinta lo que cae dentro de la caja del texto, y con `line-height: 0.8`
+ * la parte alta del glifo sobresale de ella y se recortaba (la S aparecía cortada arriba).
+ * Se amplía la caja con relleno arriba, abajo y a los lados y se compensa la posición, así la letra queda donde estaba.
+ */
 export const LetraGigante: React.FC<{ letra: string; tam: number; color: string; trama?: string; left: number; top: number; style?: CSSProperties }> = ({ letra, tam, color, trama, left, top, style }) => (
   <div
     style={{
       position: 'absolute',
-      left,
-      top,
+      left: left - tam * 0.08,
+      top: top - tam * 0.24,
+      padding: `${tam * 0.24}px ${tam * 0.08}px ${tam * 0.2}px`,
       fontWeight: 900,
       fontSize: tam,
       lineHeight: 0.8,

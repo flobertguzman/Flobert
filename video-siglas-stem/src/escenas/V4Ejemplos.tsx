@@ -33,13 +33,13 @@ export const V4Ejemplos: React.FC = () => {
           const t = rampa(f, entra, entra + 16, salida);
           const { Mundo } = e;
           return (
-            <div key={e.carrera} style={{ position: 'absolute', left: X, top: 530 + i * 158, width: 560, height: 134, background: C.blanco, borderRadius: 12, display: 'flex', alignItems: 'center', gap: 22, padding: '0 22px 0 14px', boxSizing: 'border-box', rotate: `${e.rot}deg`, translate: `${(1 - t) * -620}px 0px`, opacity: Math.min(1, t * 2), boxShadow: SOMBRA_SUAVE }}>
+            <div key={e.carrera} style={{ position: 'absolute', left: X, top: 530 + i * 158, width: 560, height: 134, background: C.blanco, border: `4px solid ${C.azul}`, borderRadius: 12, display: 'flex', alignItems: 'center', gap: 22, padding: '0 22px 0 14px', boxSizing: 'border-box', rotate: `${e.rot}deg`, translate: `${(1 - t) * -620}px 0px`, opacity: Math.min(1, t * 2), boxShadow: SOMBRA_SUAVE }}>
               <div style={{ position: 'relative', width: 106, height: 106, borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
                 <Mundo ancho={106} alto={106} desfase={i * 20} />
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 76, lineHeight: 0.8, color: e.colorLetra, paddingBottom: 6 }}>{e.letra}</div>
               </div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 20, letterSpacing: 3, color: C.acento }}>{e.area}</div>
+                <div style={{ fontWeight: 700, fontSize: 20, letterSpacing: 3, color: C.rojo }}>{e.area}</div>
                 <div style={{ marginTop: 6, fontWeight: 900, fontSize: 46, letterSpacing: -1, color: C.azul, whiteSpace: 'nowrap', lineHeight: 1.05 }}>{e.carrera}</div>
               </div>
             </div>

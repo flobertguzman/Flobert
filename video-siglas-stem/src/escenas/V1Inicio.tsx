@@ -8,19 +8,21 @@ import { AREAS, palabra } from '../tiempos';
 // Al final la cámara entra en la S y empieza la escena de Ciencia.
 
 const TILE = { w: 232, h: 320, gap: 8 };
+// Fichas sobre el fondo azul: se alternan claro / rojo (una ficha azul o azul marino se perdería sobre el fondo).
 const BLOQUES = [
   { fondo: '#F2F4FA', color: C.azul, rot: -2.5 },
   { fondo: C.acento, color: C.blanco, rot: 2 },
-  { fondo: C.fondoB, color: C.blanco, rot: -1.5 },
-  { fondo: '#F2F4FA', color: C.acento, rot: 2.5 },
+  { fondo: '#F2F4FA', color: C.azul, rot: -1.5 },
+  { fondo: C.acento, color: C.blanco, rot: 2.5 },
 ];
+// Etiquetas sobre el fondo azul: solo blanco (texto azul) o rojo (texto blanco), nunca azul marino.
 const CARRERAS = [
   { t: 'Biología', x: 70, y: 1040, rot: -5, fondo: C.blanco, color: C.azul },
   { t: 'Química', x: 610, y: 1010, rot: 4, fondo: C.acento, color: C.blanco },
-  { t: 'Física', x: 360, y: 1130, rot: -2, fondo: C.fondoB, color: C.blanco },
-  { t: 'Informática', x: 640, y: 1170, rot: 6, fondo: C.blanco, color: C.azul },
-  { t: 'Desarrollo de software', x: 70, y: 1250, rot: 3, fondo: C.acento, color: C.blanco },
-  { t: 'Ingeniería civil', x: 560, y: 1330, rot: -4, fondo: C.fondoB, color: C.blanco },
+  { t: 'Física', x: 360, y: 1130, rot: -2, fondo: C.blanco, color: C.azul },
+  { t: 'Informática', x: 640, y: 1170, rot: 6, fondo: C.acento, color: C.blanco },
+  { t: 'Desarrollo de software', x: 70, y: 1250, rot: 3, fondo: C.blanco, color: C.azul },
+  { t: 'Ingeniería civil', x: 560, y: 1330, rot: -4, fondo: C.acento, color: C.blanco },
   { t: 'Ingeniería mecánica', x: 110, y: 1400, rot: -2, fondo: C.blanco, color: C.azul },
   { t: 'Estadística', x: 690, y: 1440, rot: 5, fondo: C.acento, color: C.blanco },
 ];
@@ -99,7 +101,7 @@ export const V1Inicio: React.FC = () => {
             );
           })}
           {/* signo de pregunta como sticker sobre la M */}
-          <div style={{ position: 'absolute', left: X + 3 * (TILE.w + TILE.gap) + 150, top: filaY - 70, width: 140, height: 140, borderRadius: 70, background: C.acento, border: '6px solid #fff', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 104, lineHeight: 1, paddingBottom: 8, scale: String(rampa(f, stem + 14, stem + 28, salida)), rotate: `${12 - 12 * rampa(f, stem + 14, stem + 28, salida)}deg`, opacity: 1 - rampa(f, cuatro - 10, cuatro) }}>
+          <div style={{ position: 'absolute', left: X + 3 * (TILE.w + TILE.gap) + 150, top: filaY - 70, width: 140, height: 140, borderRadius: 70, background: C.blanco, color: C.acento, boxShadow: SOMBRA_SUAVE, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 104, lineHeight: 1, paddingBottom: 8, scale: String(rampa(f, stem + 14, stem + 28, salida)), rotate: `${12 - 12 * rampa(f, stem + 14, stem + 28, salida)}deg`, opacity: 1 - rampa(f, cuatro - 10, cuatro) }}>
             ?
           </div>
           <div style={{ opacity: 1 - rampa(f, cuatro - 10, cuatro) }}>

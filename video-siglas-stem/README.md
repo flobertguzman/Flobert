@@ -71,6 +71,8 @@ Se comprobó comparando la pista del MP4 con la mezcla WAV: 0 ms de desfase.
 - **Duración y contenido:** el reel pasa a 60 s. Para darle peso a «¿Qué son las carreras STEM?» se suman el título, la descripción y los ejemplos del carrusel «¿Qué son las carreras STEM?» (texto ya aprobado). No hay datos nuevos.
 - **Voz:** «Vivi» (ElevenLabs, español latinoamericano). Se generaron 4 frases nuevas con la misma voz. No hay voz dominicana en la cuenta.
 - **Banda:** no se usa de fondo (decisión de la v2). Solo aparecen fotos por área tomadas de sus zonas, pegadas con cinta.
+- **Cierre:** fondo claro con el logo oficial vertical (`public/logo_mescyt_vertical.svg`, recortado a su contenido). No lleva el aviso «Imagen creada con IA».
+- **Voz de la M:** la letra se genera con el texto «Eme» para que la voz diga «eme» y no «emi». El subtítulo sigue mostrando «M».
 - **Referencias de Instagram:** la red del entorno bloquea instagram.com, así que no se pudieron ver.
 - **Línea gráfica del cliente:** pendiente.
 - **Versión 1:1:** no se hizo (opcional en el brief).

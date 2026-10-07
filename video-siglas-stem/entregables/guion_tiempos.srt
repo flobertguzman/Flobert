@@ -35,7 +35,7 @@ T, de Technology: tecnología
 E, de Engineering: ingeniería
 
 10
-00:00:24,300 --> 00:00:26,630
+00:00:24,300 --> 00:00:27,260
 M, de Mathematics: matemáticas
 
 11

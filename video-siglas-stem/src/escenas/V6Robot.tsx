@@ -38,7 +38,7 @@ const Confeti: React.FC<{ desde: number }> = ({ desde }) => {
     const x = 540 + Math.cos(ang) * vel * t;
     const y = 1000 + Math.sin(ang) * vel * t + 0.9 * t * t;
     const forma = i % 4;
-    const color = [C.blanco, C.azul, C.fondoB, C.cian][i % 4];
+    const color = [C.blanco, C.azul, C.fondoB, C.blanco][i % 4]; // sobre el fondo rojo: blanco y azules (el cian se perdía)
     return { x, y, forma, color, rot: t * (8 + (i % 6) * 3) * (i % 2 ? 1 : -1), i };
   });
   return (
@@ -56,7 +56,10 @@ export const V6Robot: React.FC = () => {
   const f = useCurrentFrame();
   const fase = f < PROG ? 0 : f < ING ? 1 : f < MAT ? 2 : f < IGUAL ? 3 : 4;
   const rayos = f * 0.4;
-  const capa = (desde: number, hasta: number) => rampa(f, desde, desde + 8) * (1 - rampa(f, hasta, hasta + 8));
+  // El fondo cambia 8 fotogramas ANTES que la palabra: así el fondo ya está asentado cuando entra el texto
+  // (con el fundido a medias, «MATEMÁTICAS» azul quedaba sobre un azul grisáceo y «= UN ROBOT» blanco sobre un rosa pálido).
+  const ADELANTO = 8;
+  const capa = (desde: number, hasta: number) => rampa(f, desde - ADELANTO, desde) * (1 - rampa(f, hasta - ADELANTO, hasta));
   const titulo = rampa(f, 6, 20, salida);
 
   return (
@@ -71,7 +74,7 @@ export const V6Robot: React.FC = () => {
       <AbsoluteFill style={{ opacity: capa(MAT, IGUAL) }}>
         <MundoMatematicas curva={false} />
       </AbsoluteFill>
-      <AbsoluteFill style={{ background: C.acento, opacity: rampa(f, IGUAL, IGUAL + 8) }}>
+      <AbsoluteFill style={{ background: C.acento, opacity: rampa(f, IGUAL - ADELANTO, IGUAL) }}>
         <AbsoluteFill style={{ background: `repeating-conic-gradient(from ${rayos}deg at 50% 55%, rgba(255,255,255,0.14) 0deg 9deg, transparent 9deg 18deg)` }} />
         <Trama color="rgba(36,58,117,0.25)" paso={24} radio={5} style={{ inset: 0 }} mascara="radial-gradient(60% 45% at 50% 55%, transparent 40%, #000 100%)" />
         <Papel opacidad={0.35} modo="soft-light" />
@@ -97,9 +100,10 @@ export const V6Robot: React.FC = () => {
         {fase >= 1 && (
           <div style={{ position: 'absolute', left: 64, right: 64, top: 180, display: 'flex', gap: 12, justifyContent: 'center' }}>
             {/* la suma se va acumulando arriba */}
-            <Tag texto="PROGRAMACIÓN" fondo={C.blanco} color={C.azul} left={0} top={0} rot={-3} entra={PROG + 4} tam={24} />
-            {fase >= 2 && <Tag texto="+ INGENIERÍA" fondo={C.acento} color={C.blanco} left={330} top={6} rot={2} entra={ING + 4} tam={24} />}
-            {fase >= 3 && <Tag texto="+ MATEMÁTICAS" fondo={C.azul} color={C.blanco} left={620} top={-2} rot={-2} entra={MAT + 4} tam={24} />}
+            {/* borde blanco: el fondo pasa de azul a claro y a rojo, y estas etiquetas deben leerse sobre los tres */}
+            <Tag texto="PROGRAMACIÓN" fondo={C.fondoB} color={C.blanco} borde={C.blanco} left={0} top={0} rot={-3} entra={PROG + 4} tam={24} />
+            {fase >= 2 && <Tag texto="+ INGENIERÍA" fondo={C.acento} color={C.blanco} borde={C.blanco} left={330} top={6} rot={2} entra={ING + 4} tam={24} />}
+            {fase >= 3 && <Tag texto="+ MATEMÁTICAS" fondo={C.azul} color={C.blanco} borde={C.blanco} left={620} top={-2} rot={-2} entra={MAT + 4} tam={24} />}
           </div>
         )}
         {fase === 1 && <Palabra texto="PROGRAMACIÓN" color={C.blanco} entra={PROG} tam={122} />}

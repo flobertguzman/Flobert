@@ -28,47 +28,7 @@ Las versiones 1, 2 y 3 se conservan en `src/v1|v2|v3` y en `entregables/version-
 src/
   marca.ts          colores, márgenes y curvas de animación (línea gráfica del brief, sección 4)
   tiempos.ts        escenas del reel de 60 s + `palabra()`: fotograma exacto en que la voz dice cada palabra
-  fonts.ts          Hurme Geometric Sans 4 + Caveat Bold desde public/fonts (no necesita red)
-  Video.tsx         composición principal «STEM-siglas» (versión 4) + transiciones
-  Root.tsx          el reel, cada escena como composición propia (carpeta «escenas») y las versiones anteriores
-  escenas/
-    V1Inicio.tsx    0–11 s      ¿Qué son las carreras STEM? → cuatro áreas → cuatro letras que reúnen muchas carreras
-    V2Letra.tsx     11–28,2 s   S · T · E · M (una cada 4,3 s), cada una en su mundo, con ejemplos de carreras
-    V3Mundo.tsx     28,2–35 s   entender el mundo: investigar, crear herramientas, resolver problemas
-    V4Ejemplos.tsx  35–42 s     algunos ejemplos de carreras STEM
-    V5Juntas.tsx    42–46,8 s   franjas con carreras → las letras se juntan → TRABAJAN JUNTAS
-    V6Robot.tsx     46,8–53,8 s programación + ingeniería + matemáticas = un robot
-    V7Pregunta.tsx  53,8–57 s   ¿Qué área te da más curiosidad?
-    V8Cierre.tsx    57–60 s     firma S·T·E·M, logo MESCyT, hashtags, «Imagen creada con IA»
-  componentes/
-    collage.tsx     Papel, Trama, Sticker, Cinta, Sello, Tag, FotoCinta, Trazo, LetraGigante, Camara, Titular
-    mundos.tsx      MundoCiencia, MundoTecnologia, MundoIngenieria, MundoMatematicas
-    Transicion.tsx  flash, barras, persiana, papel, iris
-    Robot.tsx       robot SVG que se arma por partes
-    Subtitulos.tsx  subtítulos palabra por palabra
-  datos/subtitulos.json   tiempos palabra por palabra (lo genera herramientas/audio.py)
-  v1/, v2/, v3/     versiones anteriores
-public/fonts (no necesita red)
-  Video.tsx         composición principal «STEM-siglas»: fondo, banda, escenas, marca y subtítulos
-  Root.tsx          el reel, cada escena como composición propia (carpeta «escenas») y las versiones 1 y 2
-  escenas/
-    A1Apertura.tsx  0–7 s       ¿Qué son las carreras STEM? (STEM se queda en pantalla)
-    A2Letras.tsx    7–11 s      Cuatro letras que reúnen muchas carreras
-    A3Letra.tsx     11–28,2 s   S · T · E · M (una cada 4,3 s) con ejemplos de carreras
-    A4Mundo.tsx     28,2–35 s   Cuatro áreas para entender el mundo: investigar, crear, resolver
-    A5Ejemplos.tsx  35–42 s     Algunos ejemplos de carreras STEM
-    A6Juntas.tsx    42–46,8 s   Las cuatro áreas trabajan juntas
-    A7Robot.tsx     46,8–53,8 s Programación + Ingeniería + Matemáticas = un robot
-    A8Pregunta.tsx  53,8–57 s   ¿Qué área te da más curiosidad?
-    A9Cierre.tsx    57–60 s     Logo MESCyT, hashtags, «Imagen creada con IA»
-  componentes/
-    base.tsx        Fondo, Banda (una sola capa con estados por escena), Marca, Escena (transiciones), Linea, Sube,
-                    tarjetas de vidrio, TarjetaCarrera, Persona
-    Robot.tsx       robot SVG que se arma por partes
-    Subtitulos.tsx  subtítulos palabra por palabra
-  datos/subtitulos.json   tiempos palabra por palabra (lo genera herramientas/audio.py)
-  v1/, v2/          versiones anteriores de 30 s
-public/
+  fonts.ts          Hurme Geometric Sans 4 + Caveat Bold desde public/
   stickers/         Camila (RV), Elías (calculadora) y la pareja señalando, con borde blanco
   fotos/            una foto por área (ADN, código, puente, gráficas) para pegarla con cinta
   papel.jpg         textura de papel
@@ -76,7 +36,7 @@ public/
 assets/recortes_nuevos/   recortes originales entregados
 audio/voz_original/       las 12 frases de la locución tal como salieron de ElevenLabs
 herramientas/
-  preparar_assets.py  genera los recortes limpios (y los recursos de la v2)
+  preparar_assets.py  genera stickers, fotos por área, papel y recortes sin borde
   audio.py            locución, efectos, música, mezcla y tiempos de subtítulos
   render_todo.sh      renderiza la versión limpia y la de subtítulos (solo imagen)
   entregables.sh      une cada render con la mezcla y deja los MP4 en entregables/
@@ -88,7 +48,7 @@ herramientas/
 npm install
 python3 herramientas/preparar_assets.py         # solo si cambian los recortes originales
 npm run audio                                   # entregables/*.wav + src/datos/subtitulos.json
-bash herramientas/render_todo.sh                # out/limpio.mp4 y out/subtitulos.mp4 (≈ 8 min)
+bash herramientas/render_todo.sh                # out/limpio.mp4 y out/subtitulos.mp4 (≈ 8–9 min)
 bash herramientas/entregables.sh                # MP4 finales con audio
 npm run dev                                     # Remotion Studio para revisar
 ```

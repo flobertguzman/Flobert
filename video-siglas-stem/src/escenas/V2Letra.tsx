@@ -23,6 +23,7 @@ type Config = {
   sello: { fondo: string; color: string; left: number; top: number; rot: number; tam: number };
   tagEn: { left: number; top: number; fondo: string; color: string; borde?: string };
   tagEs: { left: number; top: number; fondo: string; color: string; borde?: string };
+  chispa: string; // color de las chispas: distinto del sello y del fondo
   chips: [string, string][]; // pares fondo/texto que se alternan (contrastan con el fondo de la escena y con el sello)
   flecha?: boolean;
   entradaCentrada?: boolean; // la S llega por corte de continuidad desde la apertura
@@ -42,6 +43,7 @@ export const LETRAS: Config[] = [
     sello: { fondo: C.azul, color: C.blanco, left: 64, top: 1200, rot: -3, tam: 168 },
     tagEn: { left: 64, top: 880, fondo: C.fondoB, color: C.blanco },
     tagEs: { left: 84, top: 1156, fondo: C.acento, color: C.blanco },
+    chispa: C.acento,
     chips: [[C.acento, C.blanco], [C.azul, C.blanco]],
     flecha: true,
     entradaCentrada: true,
@@ -59,6 +61,7 @@ export const LETRAS: Config[] = [
     sello: { fondo: C.acento, color: C.blanco, left: 44, top: 566, rot: -4, tam: 148 },
     tagEn: { left: 64, top: 160, fondo: C.acento, color: C.blanco, borde: C.blanco },
     tagEs: { left: 64, top: 522, fondo: C.blanco, color: C.azul },
+    chispa: C.blanco,
     chips: [[C.blanco, C.azul], [C.acento, C.blanco]],
   },
   {
@@ -74,6 +77,7 @@ export const LETRAS: Config[] = [
     sello: { fondo: C.blanco, color: C.azul, left: 64, top: 1200, rot: -3, tam: 160 },
     tagEn: { left: 64, top: 850, fondo: C.blanco, color: C.azul },
     tagEs: { left: 84, top: 1156, fondo: C.acento, color: C.blanco, borde: C.blanco },
+    chispa: C.acento,
     chips: [[C.acento, C.blanco], [C.blanco, C.azul]],
   },
   {
@@ -89,6 +93,7 @@ export const LETRAS: Config[] = [
     sello: { fondo: C.acento, color: C.blanco, left: 44, top: 632, rot: -3, tam: 128 },
     tagEn: { left: 64, top: 214, fondo: C.fondoB, color: C.blanco },
     tagEs: { left: 64, top: 588, fondo: C.azul, color: C.blanco },
+    chispa: C.azul,
     chips: [[C.azul, C.blanco], [C.acento, C.blanco]],
   },
 ];
@@ -163,7 +168,7 @@ export const V2Letra: React.FC<{ i: number }> = ({ i }) => {
         ].map(([x, y, d], k) => {
           const t = rampa(f, es + 3 + d, es + 10 + d);
           const claro = c.letraColor === C.azul; // la letra es azul cuando el fondo es claro
-          const relleno = claro ? (k === 1 ? C.acento : C.azul) : k === 1 ? C.acento : C.blanco;
+          const relleno = c.chispa;
           return (
             <svg key={k} width={70} height={70} viewBox="-20 -20 40 40" style={{ position: 'absolute', left: x, top: y, scale: String(t * (1 - rampa(f, es + 30 + d, es + 40 + d))), rotate: `${f * 3}deg` }}>
               <path d="M 0 -18 L 4.5 -4.5 L 18 0 L 4.5 4.5 L 0 18 L -4.5 4.5 L -18 0 L -4.5 -4.5 Z" fill={relleno} stroke={claro ? 'none' : C.fondoB} strokeWidth={claro ? 0 : 1.5} />

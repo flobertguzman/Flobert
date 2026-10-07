@@ -127,7 +127,7 @@ export const Robot: React.FC<P> = ({ f, cabeza, cuerpo, pecho, vivo, ancho = 470
           const k = rampa(t - d, 0, 10) * (1 - rampa(t - d, 18, 34));
           return vida > 0 ? (
             <g key={i} transform={`translate(${x} ${y}) scale(${k * 1.2}) rotate(${t * 4})`}>
-              <path d="M 0 -20 L 5 -5 L 20 0 L 5 5 L 0 20 L -5 5 L -20 0 L -5 -5 Z" fill={i % 2 ? C.cian : '#fff'} />
+              <path d="M 0 -20 L 5 -5 L 20 0 L 5 5 L 0 20 L -5 5 L -20 0 L -5 -5 Z" fill={i % 2 ? C.fondoB : '#fff'} /> {/* sobre el fondo rojo: blanco y azul marino (el cian se perdía) */}
             </g>
           ) : null;
         })}

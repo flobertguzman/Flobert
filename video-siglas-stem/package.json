@@ -1,0 +1,27 @@
+{
+  "name": "video-siglas-stem",
+  "version": "1.0.0",
+  "description": "Video «Significado de las siglas STEM» — Aceleradores STEM · MESCyT (30 s, 9:16)",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.529",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.529"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "lint": "tsc",
+    "audio": "python3 -I herramientas/audio.py",
+    "render:limpio": "remotion render STEM-siglas out/limpio.mp4 --codec=h264 --crf=15 --color-space=bt709 --props='{\"subtitulos\":false}'",
+    "render:subtitulos": "remotion render STEM-siglas out/subtitulos.mp4 --codec=h264 --crf=15 --color-space=bt709 --props='{\"subtitulos\":true}'",
+    "entregables": "bash herramientas/entregables.sh"
+  }
+}

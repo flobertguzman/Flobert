@@ -1,0 +1,63 @@
+1
+00:00:00,200 --> 00:00:01,043
+Cuatro letras que
+
+2
+00:00:01,083 --> 00:00:02,770
+reúnen muchas carreras
+
+3
+00:00:03,100 --> 00:00:05,450
+S, de Science: ciencia
+
+4
+00:00:06,100 --> 00:00:08,880
+T, de Technology: tecnología
+
+5
+00:00:09,100 --> 00:00:11,570
+E, de Engineering: ingeniería
+
+6
+00:00:12,100 --> 00:00:14,430
+M, de Mathematics: matemáticas
+
+7
+00:00:15,050 --> 00:00:16,018
+Cada área tiene
+
+8
+00:00:16,058 --> 00:00:17,178
+sus propias carreras,
+
+9
+00:00:17,218 --> 00:00:17,850
+pero muchas
+
+10
+00:00:17,890 --> 00:00:19,180
+trabajan juntas
+
+11
+00:00:19,250 --> 00:00:20,191
+Para crear un robot,
+
+12
+00:00:20,231 --> 00:00:21,457
+por ejemplo, se combinan
+
+13
+00:00:21,497 --> 00:00:22,865
+programación, ingeniería
+
+14
+00:00:22,905 --> 00:00:24,260
+y matemáticas
+
+15
+00:00:24,300 --> 00:00:25,075
+¿Qué área te da
+
+16
+00:00:25,115 --> 00:00:26,380
+más curiosidad?

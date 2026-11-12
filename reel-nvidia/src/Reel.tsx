@@ -3,7 +3,6 @@ import { Audio } from "@remotion/media";
 import {
   AbsoluteFill,
   Easing,
-  interpolate,
   Sequence,
   staticFile,
 } from "remotion";
@@ -22,7 +21,7 @@ import { Mercado } from "./scenes/Mercado";
 import { PorQue } from "./scenes/PorQue";
 import { QuePaso } from "./scenes/QuePaso";
 import { Relevo } from "./scenes/Relevo";
-import { BRAND, SCENES, TOTAL, TRANSITION, VOICE } from "./theme";
+import { BRAND, MUSIC, SCENES, TOTAL, TRANSITION, VOICE } from "./theme";
 import { Cierre } from "./scenes/Cierre";
 import { Chrome } from "./ui";
 
@@ -37,15 +36,9 @@ const timing = linearTiming({
 export const Reel: React.FC = () => (
   <AbsoluteFill>
     <Backdrop />
-    <Audio
-      src={staticFile("sfx/drone.wav")}
-      volume={(f) =>
-        interpolate(f, [TOTAL - 45, TOTAL - 1], [1, 0], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        }) * (VOICE ? 0.22 : 0.5)
-      }
-    />
+    {/* Instrumental dramático (Magnific / ElevenLabs Music), ya mezclado
+        con compresión lateral para que baje cuando habla la voz. */}
+    <Audio src={staticFile(MUSIC)} volume={1} />
     {VOICE ? <Audio src={staticFile(VOICE)} volume={1} /> : null}
     <TransitionSeries>
       <TransitionSeries.Sequence name="Hook" durationInFrames={SCENES.hook + T}>

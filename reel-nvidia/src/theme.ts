@@ -30,6 +30,9 @@ export const BRAND = {
 // su nombre (por ejemplo 'voz/voz.mp3'). La música y los efectos bajan solos.
 export const VOICE: string | null = "voz/voz.wav";
 
+// Instrumental de fondo, ya mezclado bajo la voz (public/musica/).
+export const MUSIC = "musica/musica.wav";
+
 // Duración de cada transición entre escenas (frames).
 export const TRANSITION = 14;
 

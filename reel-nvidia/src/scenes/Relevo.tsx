@@ -19,6 +19,14 @@ const PEOPLE = [
 
 export const Relevo: React.FC = () => (
   <Scene
+    camera={{
+      zoom: [1.1, 1.0],
+      pan: [
+        [-40, 0],
+        [30, 0],
+      ],
+      roll: [0.8, -0.3],
+    }}
     eyebrow="El relevo"
     source="Nvidia, comunicado y formulario 8-K (12/11/2026)."
   >

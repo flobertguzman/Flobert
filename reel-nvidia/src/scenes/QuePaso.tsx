@@ -9,6 +9,19 @@ export const QuePaso: React.FC = () => {
   const frame = useCurrentFrame();
   return (
     <Scene
+      camera={{
+        zoom: [1.02, 1.07],
+        pan: [
+          [0, 30],
+          [0, -20],
+        ],
+        shakes: [
+          { at: 38, power: 0.35 },
+          { at: 51, power: 0.35 },
+          { at: 64, power: 0.35 },
+          { at: 122, power: 0.6 },
+        ],
+      }}
       eyebrow="Qué pasó"
       source="Nvidia, comunicado y formulario 8-K (12/11/2026)."
     >

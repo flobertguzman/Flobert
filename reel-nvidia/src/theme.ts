@@ -26,6 +26,13 @@ export const BRAND = {
   tagline: "El dinero detrás de la IA, explicado.",
 };
 
+// Voz en off: cuando tengas tu grabación, ponla en public/voz/ y escribe aquí
+// su nombre (por ejemplo 'voz/voz.mp3'). La música y los efectos bajan solos.
+export const VOICE: string | null = null;
+
+// Duración de cada transición entre escenas (frames).
+export const TRANSITION = 14;
+
 export const CLAMP = {
   extrapolateLeft: "clamp",
   extrapolateRight: "clamp",

@@ -19,6 +19,19 @@ const ITEMS = [
 
 export const PorQue: React.FC = () => (
   <Scene
+    camera={{
+      zoom: [1.0, 1.06],
+      roll: [-0.8, 0.5],
+      pan: [
+        [24, 10],
+        [-24, -10],
+      ],
+      shakes: [
+        { at: 40, power: 0.3 },
+        { at: 72, power: 0.45 },
+        { at: 104, power: 0.3 },
+      ],
+    }}
     eyebrow="El contexto"
     source="The New York Times, CNN y CNBC (11–12/11/2026). Reportes de prensa."
   >

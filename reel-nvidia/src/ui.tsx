@@ -7,11 +7,11 @@ import {
   Sequence,
   staticFile,
   useCurrentFrame,
-  useVideoConfig,
 } from "remotion";
-import { C, CLAMP, mono, sans } from "./theme";
+import { C, CLAMP, mono, sans, VOICE } from "./theme";
+import { Camera, type CameraMove, Words } from "./motion";
 
-const OUT = Easing.bezier(0.16, 1, 0.3, 1);
+import { OUT } from "./motion";
 
 /** Entrada: aparece y sube desde `at`. */
 export const Rise: React.FC<{
@@ -20,12 +20,22 @@ export const Rise: React.FC<{
   y?: number;
   dur?: number;
   style?: React.CSSProperties;
-}> = ({ at, children, y = 44, dur = 16, style }) => {
+}> = ({ at, children, y = 44, dur = 18, style }) => {
   const frame = useCurrentFrame();
   return (
     <div
       style={{
         opacity: interpolate(frame, [at, at + dur * 0.7], [0, 1], CLAMP),
+        filter: `blur(${interpolate(frame, [at, at + dur * 0.8], [12, 0], CLAMP)}px)`,
+        rotate: interpolate(
+          frame,
+          [at, at + dur],
+          ["1 0 0 18deg", "1 0 0 0deg"],
+          {
+            ...CLAMP,
+            easing: OUT,
+          },
+        ),
         translate: interpolate(
           frame,
           [at, at + dur],
@@ -50,7 +60,10 @@ export const Sfx: React.FC<{ at: number; src: string; volume?: number }> = ({
   volume = 0.6,
 }) => (
   <Sequence from={at} layout="none">
-    <Audio src={staticFile(`sfx/${src}.wav`)} volume={volume} />
+    <Audio
+      src={staticFile(`sfx/${src}.wav`)}
+      volume={volume * (VOICE ? 0.55 : 1)}
+    />
   </Sequence>
 );
 
@@ -170,11 +183,13 @@ export const Headline: React.FC<{
       color: C.ink,
     }}
   >
-    <Rise at={at}>{a}</Rise>
+    <div>
+      <Words text={a} at={at} />
+    </div>
     {b ? (
-      <Rise at={at + 8} style={{ color: C.inkT }}>
-        {b}
-      </Rise>
+      <div style={{ color: C.inkT }}>
+        <Words text={b} at={at + a.split(" ").length * 3 + 2} />
+      </div>
     ) : null}
   </div>
 );
@@ -183,100 +198,78 @@ export const Headline: React.FC<{
 export const Scene: React.FC<{
   eyebrow?: string;
   source?: string;
+  camera?: CameraMove;
   children: React.ReactNode;
-}> = ({ eyebrow, source, children }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
-  return (
-    <AbsoluteFill
-      style={{
-        padding: "300px 80px 400px",
-        fontFamily: sans,
-        color: C.ink,
-        opacity: interpolate(
-          frame,
-          [durationInFrames - 8, durationInFrames - 1],
-          [1, 0],
-          CLAMP,
-        ),
-      }}
-    >
-      <div
-        style={{
-          height: 1190,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        {eyebrow ? (
-          <Rise at={0} y={20} style={{ marginBottom: 34 }}>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 14,
-                fontFamily: sans,
-                fontWeight: 500,
-                fontSize: 30,
-                color: C.inkM,
-                background: C.s2,
-                border: `1.5px solid ${C.hair}`,
-                borderRadius: 9999,
-                padding: "12px 26px 12px 20px",
-              }}
-            >
-              <i
-                style={{
-                  width: 13,
-                  height: 13,
-                  borderRadius: "50%",
-                  background: C.acc,
-                }}
-              />
-              {eyebrow}
-            </span>
-          </Rise>
-        ) : null}
-        {children}
-      </div>
-      {source ? (
-        <div
-          style={{
-            position: "absolute",
-            left: 80,
-            right: 80,
-            bottom: 330,
-            fontFamily: mono,
-            fontSize: 24,
-            lineHeight: 1.5,
-            color: C.inkT,
-            opacity: interpolate(frame, [20, 34], [0, 1], CLAMP),
-          }}
-        >
-          <span style={{ color: C.inkS }}>Fuente:</span> {source}
-        </div>
-      ) : null}
-    </AbsoluteFill>
-  );
-};
-
-/** Fondo: lienzo casi negro con retícula muy tenue que se desplaza. */
-export const Backdrop: React.FC = () => {
+}> = ({ eyebrow, source, camera, children }) => {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ background: C.canvas }}>
+    <Camera move={camera}>
       <AbsoluteFill
         style={{
-          backgroundImage: `linear-gradient(${C.hair} 1.5px, transparent 1.5px), linear-gradient(90deg, ${C.hair} 1.5px, transparent 1.5px)`,
-          backgroundSize: "120px 120px",
-          backgroundPosition: `0px ${interpolate(frame, [0, 1200], [0, -240])}px`,
-          opacity: 0.35,
-          maskImage:
-            "radial-gradient(ellipse 75% 60% at 50% 45%, black 0%, transparent 100%)",
+          padding: "340px 80px 400px",
+          fontFamily: sans,
+          color: C.ink,
+          perspective: 1400,
         }}
-      />
-    </AbsoluteFill>
+      >
+        <div
+          style={{
+            height: 1150,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {eyebrow ? (
+            <Rise at={0} y={20} style={{ marginBottom: 34 }}>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 14,
+                  fontFamily: sans,
+                  fontWeight: 500,
+                  fontSize: 30,
+                  color: C.inkM,
+                  background: C.s2,
+                  border: `1.5px solid ${C.hair}`,
+                  borderRadius: 9999,
+                  padding: "12px 26px 12px 20px",
+                }}
+              >
+                <i
+                  style={{
+                    width: 13,
+                    height: 13,
+                    borderRadius: "50%",
+                    background: C.acc,
+                  }}
+                />
+                {eyebrow}
+              </span>
+            </Rise>
+          ) : null}
+          {children}
+        </div>
+        {source ? (
+          <div
+            style={{
+              position: "absolute",
+              left: 80,
+              right: 80,
+              bottom: 330,
+              fontFamily: mono,
+              fontSize: 24,
+              lineHeight: 1.5,
+              color: C.inkT,
+              opacity: interpolate(frame, [20, 34], [0, 1], CLAMP),
+            }}
+          >
+            <span style={{ color: C.inkS }}>Fuente:</span> {source}
+          </div>
+        ) : null}
+      </AbsoluteFill>
+    </Camera>
   );
 };
 
@@ -284,64 +277,72 @@ export const Backdrop: React.FC = () => {
 export const Chrome: React.FC<{ total: number }> = ({ total }) => {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ padding: "190px 80px 0", fontFamily: sans }}>
-      <div
+    <AbsoluteFill>
+      <AbsoluteFill
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          background:
+            "linear-gradient(to bottom, #010102 0%, #010102 185px, rgba(1,1,2,0) 250px)",
         }}
-      >
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 14,
-            background: C.red,
-            color: "#fff",
-            fontWeight: 600,
-            fontSize: 30,
-            letterSpacing: 0.4,
-            borderRadius: 10,
-            padding: "10px 20px",
-            scale: interpolate(frame, [0, 10], [0.6, 1], {
-              ...CLAMP,
-              easing: Easing.bezier(0.34, 1.56, 0.64, 1),
-            }),
-          }}
-        >
-          <i
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: "50%",
-              background: "#fff",
-              opacity: interpolate(frame % 30, [0, 15, 30], [1, 0.25, 1]),
-            }}
-          />
-          ÚLTIMA HORA
-        </span>
-        <span style={{ fontFamily: mono, fontSize: 26, color: C.inkS }}>
-          12 NOV 2026
-        </span>
-      </div>
-      <div
-        style={{
-          height: 4,
-          background: C.hair,
-          borderRadius: 2,
-          marginTop: 26,
-          overflow: "hidden",
-        }}
-      >
+      />
+      <AbsoluteFill style={{ padding: "190px 80px 0", fontFamily: sans }}>
         <div
           style={{
-            height: "100%",
-            background: C.inkM,
-            width: `${interpolate(frame, [0, total], [0, 100], CLAMP)}%`,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-        />
-      </div>
+        >
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 14,
+              background: C.red,
+              color: "#fff",
+              fontWeight: 600,
+              fontSize: 30,
+              letterSpacing: 0.4,
+              borderRadius: 10,
+              padding: "10px 20px",
+              scale: interpolate(frame, [0, 10], [0.6, 1], {
+                ...CLAMP,
+                easing: Easing.bezier(0.34, 1.56, 0.64, 1),
+              }),
+            }}
+          >
+            <i
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: "50%",
+                background: "#fff",
+                opacity: interpolate(frame % 30, [0, 15, 30], [1, 0.25, 1]),
+              }}
+            />
+            ÚLTIMA HORA
+          </span>
+          <span style={{ fontFamily: mono, fontSize: 26, color: C.inkS }}>
+            12 NOV 2026
+          </span>
+        </div>
+        <div
+          style={{
+            height: 4,
+            background: C.hair,
+            borderRadius: 2,
+            marginTop: 26,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              height: "100%",
+              background: C.inkM,
+              width: `${interpolate(frame, [0, total], [0, 100], CLAMP)}%`,
+            }}
+          />
+        </div>
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

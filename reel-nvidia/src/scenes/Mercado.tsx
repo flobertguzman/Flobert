@@ -17,7 +17,7 @@ const TICKERS = [
 
 export const Mercado: React.FC = () => {
   const frame = useCurrentFrame();
-  const drop = interpolate(frame, [30, 66], [0, 10], {
+  const drop = interpolate(frame, [44, 92], [0, 10], {
     ...CLAMP,
     easing: Easing.bezier(0.5, 0, 0.2, 1),
   });
@@ -31,13 +31,13 @@ export const Mercado: React.FC = () => {
             [0, 30],
             [0, -15],
           ],
-          shakes: [{ at: 56, power: 1.4 }],
+          shakes: [{ at: 92, power: 1.4 }],
         }}
         eyebrow="El mercado"
         source="CNBC y Yahoo Finance (12/11/2026). Suben rivales, caen socios."
       >
         <Sfx at={0} src="hit" volume={0.5} />
-        <Sfx at={44} src="swell" volume={0.5} />
+        <Sfx at={74} src="swell" volume={0.5} />
         <Headline a="Wall Street" b="no esperó." />
         <Rise at={20} style={{ marginTop: 34 }}>
           <Panel
@@ -99,7 +99,7 @@ export const Mercado: React.FC = () => {
                   strokeLinejoin="round"
                   pathLength={1}
                   strokeDasharray="1"
-                  strokeDashoffset={interpolate(frame, [26, 74], [1, 0], {
+                  strokeDashoffset={interpolate(frame, [30, 92], [1, 0], {
                     ...CLAMP,
                     easing: Easing.bezier(0.5, 0, 0.2, 1),
                   })}
@@ -112,7 +112,7 @@ export const Mercado: React.FC = () => {
                 gridTemplateColumns: "1fr 1fr",
                 borderTop: `1.5px solid ${C.hair}`,
                 background: C.s2,
-                opacity: interpolate(frame, [80, 94], [0, 1], CLAMP),
+                opacity: interpolate(frame, [96, 106], [0, 1], CLAMP),
               }}
             >
               <div
@@ -162,8 +162,8 @@ export const Mercado: React.FC = () => {
           }}
         >
           {TICKERS.map((t, i) => (
-            <Rise key={t.n} at={124 + i * 12} y={24}>
-              <Sfx at={124 + i * 12} src="tick" volume={0.5} />
+            <Rise key={t.n} at={100 + i * 6} y={24}>
+              <Sfx at={100 + i * 6} src="tick" volume={0.5} />
               <div
                 style={{
                   display: "flex",
@@ -195,7 +195,7 @@ export const Mercado: React.FC = () => {
           ))}
         </div>
       </Scene>
-      <Flash at={56} color="#eb5757" peak={0.28} />
+      <Flash at={92} color="#eb5757" peak={0.28} />
     </>
   );
 };

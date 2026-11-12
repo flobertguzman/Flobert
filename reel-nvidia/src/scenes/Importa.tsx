@@ -17,13 +17,13 @@ export const Importa: React.FC = () => (
           [0, 30],
           [0, -30],
         ],
-        shakes: [{ at: 62, power: 1 }],
+        shakes: [{ at: 96, power: 1 }],
       }}
       eyebrow="Por qué importa"
       source="Nvidia, 2T año fiscal 2027; guías de capex 3T 2026 de Amazon, Alphabet, Microsoft y Meta."
     >
       <Sfx at={0} src="hit" volume={0.5} />
-      <Sfx at={62} src="boom" volume={0.6} />
+      <Sfx at={96} src="boom" volume={0.6} />
       <Headline a="Toda la IA corre" b="sobre sus chips." />
       <div
         style={{
@@ -60,7 +60,7 @@ export const Importa: React.FC = () => (
           </Rise>
         ))}
       </div>
-      <Rise at={62} style={{ marginTop: 34 }}>
+      <Rise at={86} style={{ marginTop: 34 }}>
         <div
           style={{
             position: "relative",
@@ -98,6 +98,6 @@ export const Importa: React.FC = () => (
         </div>
       </Rise>
     </Scene>
-    <Flash at={62} color="#828fff" peak={0.3} />
+    <Flash at={96} color="#828fff" peak={0.3} />
   </>
 );

@@ -27,9 +27,9 @@ export const PorQue: React.FC = () => (
         [-24, -10],
       ],
       shakes: [
-        { at: 40, power: 0.3 },
-        { at: 72, power: 0.45 },
-        { at: 104, power: 0.3 },
+        { at: 72, power: 0.3 },
+        { at: 142, power: 0.45 },
+        { at: 180, power: 0.3 },
       ],
     }}
     eyebrow="El contexto"
@@ -46,7 +46,7 @@ export const PorQue: React.FC = () => (
           {ITEMS.map((it, i) => (
             <Rise
               key={it.t}
-              at={40 + i * 32}
+              at={[72, 142, 180][i]}
               y={26}
               style={{
                 display: "grid",
@@ -55,7 +55,7 @@ export const PorQue: React.FC = () => (
                 borderBottom: i < 2 ? `1.5px solid ${C.hair}` : "none",
               }}
             >
-              <Sfx at={40 + i * 32} src="switch" volume={0.4} />
+              <Sfx at={[72, 142, 180][i]} src="switch" volume={0.4} />
               <span style={{ fontSize: 46, fontWeight: 600, color: C.accH }}>
                 {i + 1}
               </span>
@@ -87,7 +87,7 @@ export const PorQue: React.FC = () => (
       </Panel>
     </Rise>
     <Rise
-      at={140}
+      at={198}
       style={{
         marginTop: 36,
         fontSize: 40,

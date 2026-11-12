@@ -28,7 +28,7 @@ export const BRAND = {
 
 // Voz en off: cuando tengas tu grabación, ponla en public/voz/ y escribe aquí
 // su nombre (por ejemplo 'voz/voz.mp3'). La música y los efectos bajan solos.
-export const VOICE: string | null = null;
+export const VOICE: string | null = "voz/voz.wav";
 
 // Duración de cada transición entre escenas (frames).
 export const TRANSITION = 14;
@@ -40,12 +40,12 @@ export const CLAMP = {
 
 export const FPS = 30;
 export const SCENES = {
-  hook: 120,
+  hook: 159,
   quePaso: 180,
-  porQue: 210,
-  mercado: 240,
-  relevo: 180,
-  importa: 150,
-  cierre: 120,
+  porQue: 225,
+  mercado: 142,
+  relevo: 155,
+  importa: 204,
+  cierre: 135,
 };
 export const TOTAL = Object.values(SCENES).reduce((a, b) => a + b, 0);

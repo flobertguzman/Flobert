@@ -19,7 +19,7 @@ export const QuePaso: React.FC = () => {
           { at: 38, power: 0.35 },
           { at: 51, power: 0.35 },
           { at: 64, power: 0.35 },
-          { at: 122, power: 0.6 },
+          { at: 128, power: 0.6 },
         ],
       }}
       eyebrow="Qué pasó"
@@ -91,7 +91,7 @@ export const QuePaso: React.FC = () => {
         </Panel>
       </Rise>
       <Rise
-        at={86}
+        at={92}
         style={{
           marginTop: 48,
           display: "flex",
@@ -99,7 +99,7 @@ export const QuePaso: React.FC = () => {
           gap: 30,
         }}
       >
-        {[90, 98, 106, 114].map((t) => (
+        {[98, 106, 114, 122].map((t) => (
           <Sfx key={t} at={t} src="tick" volume={0.5} />
         ))}
         <div
@@ -112,7 +112,7 @@ export const QuePaso: React.FC = () => {
           }}
         >
           {Math.round(
-            interpolate(frame, [88, 122], [0, 33], {
+            interpolate(frame, [96, 128], [0, 33], {
               ...CLAMP,
               easing: Easing.bezier(0.16, 1, 0.3, 1),
             }),

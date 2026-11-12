@@ -1,20 +1,17 @@
 # Guion de voz: reel Nvidia (40 s)
 
-Lee el texto de corrido, a ritmo de noticia (un poco más rápido que una conversación).
-Cada bloque tiene que caber en su tiempo; si te sobra o te falta un poco, yo lo ajusto.
+Voz: tu voz clonada en Magnific ("Flobert (HEAVY)"), modelo ElevenLabs v4, acelerada a 1.04×.
+Los audios originales están en `public/voz/raw/` y la pista final sincronizada en `public/voz/voz.wav`.
 
-| Tiempo | Escena | Texto |
+| Entra en | Escena | Texto |
 |---|---|---|
-| 0:00 – 0:04 | Gancho | El hombre detrás del boom de la inteligencia artificial... acaba de renunciar. |
-| 0:04 – 0:10 | Qué pasó | Jensen Huang deja Nvidia con efecto inmediato: presidente, CEO y miembro de la junta. Después de treinta y tres años. |
-| 0:10 – 0:17 | Contexto | Nvidia no explicó por qué. Pero la prensa reporta relaciones extramatrimoniales, una de ellas con una presunta espía china. Y la junta ya lo estaba investigando. |
-| 0:17 – 0:25 | Mercado | Wall Street no esperó: la acción cayó cerca de un diez por ciento y Nvidia quedó por debajo de los cuatro billones de dólares. |
-| 0:25 – 0:31 | Relevo | Colette Kress, su directora financiera, asume como CEO interina mientras buscan reemplazo. |
-| 0:31 – 0:36 | Por qué importa | Toda la IA corre sobre sus chips. Así que la pregunta es: ¿Nvidia sin Jensen sigue siendo Nvidia? |
-| 0:36 – 0:40 | Cierre | Sígueme para entender el dinero detrás de la IA. |
+| 0:00 | Gancho | El hombre detrás del boom de la inteligencia artificial... acaba de renunciar. |
+| 0:05 | Qué pasó | Jensen Huang deja Nvidia, con efecto inmediato, tras treinta y tres años al mando. |
+| 0:11 | Contexto | Nvidia no dijo por qué. Pero la prensa reporta relaciones extramatrimoniales... una, con una presunta espía china. |
+| 0:19 | Mercado | Wall Street no esperó: la acción cayó casi un diez por ciento. |
+| 0:24 | Relevo | Colette Kress, su directora financiera, queda como CEO interina. |
+| 0:29 | Por qué importa | Toda la IA corre sobre sus chips. ¿Nvidia sin Jensen... sigue siendo Nvidia? |
+| 0:36 | Cierre | Sígueme para entender el dinero detrás de la IA. |
 
-## Cómo grabar
-
-- Con el celular basta: en un cuarto pequeño y sin eco (un clóset con ropa funciona muy bien), a un palmo del micrófono.
-- Graba todo seguido en una sola toma. Deja 1 segundo de silencio al inicio.
-- Mándame el archivo tal cual (m4a, mp3 o wav). Yo lo limpio, lo nivelo y lo sincronizo con cada escena.
+Para cambiar la voz: reemplaza `public/voz/voz.wav` (40 s, con cada línea en su tiempo) y vuelve a renderizar.
+Para quitarla: en `src/theme.ts` pon `VOICE = null`.

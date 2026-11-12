@@ -4,7 +4,7 @@ import { C, CLAMP, sans } from "../theme";
 import { Flash, glitchShadow, Words } from "../motion";
 import { Rise, Scene, Sfx } from "../ui";
 
-const HIT = 30;
+const HIT = 108;
 
 export const Hook: React.FC = () => {
   const frame = useCurrentFrame();
@@ -35,10 +35,10 @@ export const Hook: React.FC = () => {
           }}
         >
           <div>
-            <Words text="El hombre detrás" at={2} stagger={4} />
+            <Words text="El hombre detrás" at={4} stagger={6} />
           </div>
           <div>
-            <Words text="del boom de la IA" at={12} stagger={4} />
+            <Words text="del boom de la IA" at={40} stagger={8} />
           </div>
           <div
             style={{
@@ -73,7 +73,7 @@ export const Hook: React.FC = () => {
             })}%`,
           }}
         />
-        <Rise at={62} style={{ marginTop: 54 }}>
+        <Rise at={120} style={{ marginTop: 54 }}>
           <div
             style={{
               fontSize: 62,
@@ -85,7 +85,7 @@ export const Hook: React.FC = () => {
             Jensen Huang deja Nvidia.
           </div>
         </Rise>
-        <Rise at={72} style={{ marginTop: 14 }}>
+        <Rise at={130} style={{ marginTop: 14 }}>
           <div
             style={{
               fontSize: 46,

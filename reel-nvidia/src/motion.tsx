@@ -381,3 +381,17 @@ export const shutter = (): TransitionPresentation<Record<string, never>> => ({
   component: Shutter,
   props: {},
 });
+
+/** Fundido a negro al final de la composición. */
+export const FadeOut: React.FC<{ frames: number }> = ({ frames }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const o = interpolate(
+    frame,
+    [durationInFrames - frames, durationInFrames - 1],
+    [0, 1],
+    CLAMP,
+  );
+  if (o <= 0) return null;
+  return <AbsoluteFill style={{ background: "#000", opacity: o }} />;
+};

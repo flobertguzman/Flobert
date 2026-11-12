@@ -45,7 +45,6 @@ export const SCENES = {
   porQue: 225,
   mercado: 142,
   relevo: 155,
-  importa: 204,
-  cierre: 135,
+  importa: 234,
 };
 export const TOTAL = Object.values(SCENES).reduce((a, b) => a + b, 0);

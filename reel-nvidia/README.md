@@ -1,10 +1,9 @@
 # Reel: renuncia de Jensen Huang (Nvidia)
 
-Reel vertical de 40 s (1080×1920, 30 fps) hecho con Remotion.
+Reel vertical de 36,5 s (1080×1920, 30 fps) hecho con Remotion, con voz en off y sin escena de cierre.
 
 - Ver y editar: `npm run dev`
 - Renderizar: `npx remotion render Reel out/reel-nvidia.mp4`
-- Marca y logo: `src/theme.ts` (`BRAND`). Pon el logo en `public/` y escribe su nombre en `logo`.
 - Duración de cada escena: `SCENES` en `src/theme.ts`.
 - Sonidos: Kenney (CC0), ver `public/sfx/CREDITOS.txt`.
 

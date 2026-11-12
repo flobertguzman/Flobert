@@ -2,280 +2,377 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Carrusel IA y dinero</title>
+<title>Sigue el dinero de la IA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0D1424; --bg2:#141D33; --line:#26314D; --ink:#F4F1EA; --mute:#9AA4BD;
-    --gold:#F2B544; --gold-soft:rgba(242,181,68,.18); --teal:#4FD1B5; --red:#FF6B5E;
+    --paper:#F3EEE4; --paper-hi:#FAF7F1; --ink:#1F1D1A; --ink-2:#4A4640; --mute:#857F75;
+    --hair:rgba(31,29,26,.14); --hair-2:rgba(31,29,26,.08);
+    --ochre:#B07D22; --ochre-soft:rgba(176,125,34,.14); --wine:#A6324F; --wine-soft:rgba(166,50,79,.12);
+    --night:#151412; --night-2:#1E1C19; --cream:#EFE8DA; --cream-mute:#A39B8D; --ochre-lt:#D9A441;
     --brand:"@tumarca";
+    --serif:"Instrument Serif",Georgia,serif; --sans:Geist,system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:#05080F;font-family:Inter,system-ui,sans-serif;color:var(--ink);
-       display:flex;flex-direction:column;align-items:center;gap:40px;padding:40px 0}
-  .slide{width:1080px;height:1350px;background:var(--bg);position:relative;overflow:hidden;
-         padding:84px 80px 0;display:flex;flex-direction:column}
-  .slide::before{content:"";position:absolute;inset:0;
-    background:radial-gradient(900px 600px at 100% 0%,rgba(242,181,68,.10),transparent 60%),
-               radial-gradient(700px 500px at 0% 100%,rgba(79,209,181,.06),transparent 60%);
-    pointer-events:none}
-  .top{display:flex;justify-content:space-between;align-items:center;font:500 22px "JetBrains Mono",monospace;
-       color:var(--mute);letter-spacing:.04em;position:relative}
-  .top .tag{color:var(--gold)}
-  h1,h2{font-family:"Barlow Condensed",sans-serif;font-weight:800;text-transform:uppercase;
-        line-height:.92;letter-spacing:-.005em;position:relative}
-  h1{font-size:112px;margin-top:64px}
-  h2{font-size:82px;margin-top:44px}
-  .gold{color:var(--gold)} .teal{color:var(--teal)} .red{color:var(--red)} .mute{color:var(--mute)}
-  .lede{font-size:31px;line-height:1.35;color:#D5D9E4;margin-top:28px;max-width:900px;position:relative}
-  .lede b{color:var(--ink)}
-  .body{flex:1;position:relative;margin-top:36px;display:flex;flex-direction:column}
-  .foot{position:relative;border-top:1px solid var(--line);margin:0 -80px;padding:22px 80px 30px;
-        display:flex;justify-content:space-between;gap:30px;align-items:flex-end;background:rgba(5,8,15,.35)}
-  .src{font:400 18px/1.45 "JetBrains Mono",monospace;color:var(--mute);max-width:780px}
-  .src b{color:#C9CFDD;font-weight:500}
-  .brand{font:600 22px "JetBrains Mono",monospace;color:var(--ink);white-space:nowrap}
+  body{background:#0B0A09;font-family:var(--sans);color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:40px;padding:40px 0}
+
+  .slide{width:1080px;height:1350px;background:var(--paper);position:relative;overflow:hidden;
+         padding:76px 88px 0;display:flex;flex-direction:column}
+  .slide::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  .slide.dark{background:var(--night);color:var(--cream)}
+  .slide.dark::after{mix-blend-mode:screen;opacity:.05}
+  .slide.dark::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(900px 700px at 85% -10%,rgba(217,164,65,.16),transparent 60%),
+               radial-gradient(800px 600px at -10% 110%,rgba(166,50,79,.10),transparent 60%)}
+
+  .head{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+  .eyebrow{font:500 17px var(--mono);letter-spacing:.18em;text-transform:uppercase;
+           padding:9px 18px;border-radius:999px;border:1px solid var(--hair);color:var(--ink-2)}
+  .eyebrow b{color:var(--ochre);font-weight:500}
+  .dark .eyebrow{border-color:rgba(239,232,218,.18);color:var(--cream-mute)}
+  .dark .eyebrow b{color:var(--ochre-lt)}
+  .prog{display:flex;gap:6px;align-items:center}
+  .prog i{width:22px;height:3px;border-radius:2px;background:var(--hair)}
+  .prog i.on{background:var(--ink)}
+  .dark .prog i{background:rgba(239,232,218,.18)} .dark .prog i.on{background:var(--cream)}
+  .pg{font:500 17px var(--mono);color:var(--mute);margin-left:14px;letter-spacing:.06em}
+
+  h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;position:relative;z-index:1}
+  h1{font-size:128px;line-height:.94;margin-top:96px}
+  h2{font-size:96px;line-height:.96;margin-top:50px}
+  h1 em,h2 em{font-style:italic;color:var(--ochre)}
+  .dark h1 em,.dark h2 em{color:var(--ochre-lt)}
+  .lede{font:300 30px/1.42 var(--sans);color:var(--ink-2);margin-top:30px;max-width:860px;position:relative;z-index:1}
+  .lede b{font-weight:500;color:var(--ink)}
+  .dark .lede{color:var(--cream-mute)} .dark .lede b{color:var(--cream)}
+
+  .body{flex:1;position:relative;z-index:1;margin-top:52px;display:flex;flex-direction:column}
+  .foot{position:relative;z-index:1;margin:0 -88px;padding:22px 88px 30px;border-top:1px solid var(--hair);
+        display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+  .dark .foot{border-color:rgba(239,232,218,.14)}
+  .src{font:400 16.5px/1.55 var(--mono);color:var(--mute);max-width:760px}
+  .src b{font-weight:500;color:var(--ink-2)}
+  .dark .src{color:var(--cream-mute)} .dark .src b{color:var(--cream)}
+  .brand{font:500 18px var(--mono);white-space:nowrap;color:var(--ink)}
   .brand::before{content:var(--brand)}
+  .dark .brand{color:var(--cream)}
 
-  /* bars */
-  .bars{display:flex;flex-direction:column;gap:30px}
-  .bar-row{display:grid;grid-template-columns:230px 1fr;align-items:center;gap:24px}
-  .bar-label{font:700 40px "Barlow Condensed";text-transform:uppercase}
-  .bar-label small{display:block;font:500 19px Inter;color:var(--mute);text-transform:none;margin-top:2px}
-  .track{position:relative;height:74px}
-  .fill{position:absolute;left:0;top:0;bottom:0;background:var(--gold);border-radius:6px;
-        display:flex;align-items:center;justify-content:flex-end;padding-right:18px;
-        font:800 42px "Barlow Condensed";color:var(--bg)}
-  .ext{position:absolute;top:0;bottom:0;border-radius:0 6px 6px 0;
-       background:repeating-linear-gradient(135deg,rgba(242,181,68,.55) 0 8px,rgba(242,181,68,.2) 8px 16px)}
-  .valout{position:absolute;top:50%;transform:translateY(-50%);font:800 42px "Barlow Condensed";color:var(--ink)}
-
-  .total{margin-top:auto;margin-bottom:44px;background:var(--gold);color:var(--bg);border-radius:14px;
-         padding:30px 38px;display:flex;justify-content:space-between;align-items:center}
-  .total .k{font:700 30px "Barlow Condensed";text-transform:uppercase;letter-spacing:.02em;max-width:420px;line-height:1.05}
-  .total .v{font:800 72px "Barlow Condensed";line-height:1}
-
-  .cards{display:grid;gap:22px}
-  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:26px 32px}
-  .card .h{font:700 26px "Barlow Condensed";text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
-  .card .big{font:800 86px "Barlow Condensed";line-height:1;margin-top:8px}
-  .card .note{font-size:24px;line-height:1.4;color:#C9CFDD;margin-top:10px}
-  .pill{display:inline-block;font:700 30px "Barlow Condensed";padding:4px 14px;border-radius:8px;
-        background:rgba(79,209,181,.15);color:var(--teal);vertical-align:middle;margin-left:10px}
-  .pill.r{background:rgba(255,107,94,.15);color:var(--red)}
-
-  .callout{margin-top:auto;margin-bottom:30px;border-left:8px solid var(--gold);padding:8px 0 8px 30px;
-           font:600 36px/1.3 Inter}
-  .stamp{display:inline-block;font:500 20px "JetBrains Mono";color:var(--gold);border:1px solid var(--gold);
-         padding:8px 14px;border-radius:6px;letter-spacing:.04em}
+  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
+  .num{font-family:var(--serif);font-weight:400;line-height:.9;letter-spacing:-.025em}
+  .cap{font:500 17px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .ochre{color:var(--ochre)} .wine{color:var(--wine)}
+  .rule{height:1px;background:var(--hair)}
+  .bezel{background:rgba(31,29,26,.035);border-radius:34px;padding:7px;box-shadow:inset 0 0 0 1px var(--hair-2)}
+  .bezel>.core{background:var(--paper-hi);border-radius:28px;padding:34px 38px;
+               box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 40px -24px rgba(31,29,26,.18)}
+  .chip{display:inline-flex;align-items:center;font:500 20px var(--mono);padding:6px 14px;border-radius:999px;
+        background:var(--ochre-soft);color:#7E5810;letter-spacing:.02em}
+  .quote{margin-top:auto;margin-bottom:30px;font:400 italic 44px/1.12 var(--serif);letter-spacing:-.01em;max-width:860px}
+  .quote span{color:var(--ochre)}
+  .quote.w span{color:var(--wine)}
+  .hatch-o{background:repeating-linear-gradient(135deg,rgba(176,125,34,.75) 0 2px,transparent 2px 9px)}
+  .hatch-w{background:repeating-linear-gradient(135deg,rgba(166,50,79,.8) 0 2px,transparent 2px 9px)}
+  .row-txt{font:300 23px/1.45 var(--sans);color:var(--ink-2);margin-top:10px}
+  .row-txt b{font-weight:500;color:var(--ink)}
+  .src-li{display:grid;grid-template-columns:56px 1fr;padding:15px 0;border-top:1px solid rgba(239,232,218,.12);font:300 21px/1.4 var(--sans);color:var(--cream)}
+  .src-li .cap{color:var(--ochre-lt);padding-top:4px}
+  .tl{position:relative;padding:0 0 22px}
+  .tl .dot{position:absolute;left:-56px;top:8px;width:24px;height:24px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 2px var(--ink),0 0 0 6px var(--paper)}
+  .tl .t{font-family:var(--serif);font-size:40px;margin-top:4px;letter-spacing:-.02em}
+  .tl p{font:300 22px/1.45 var(--sans);color:var(--ink-2);margin-top:4px}
 </style>
 </head>
 <body>
 
-<!-- 01 PORTADA -->
-<section class="slide" id="s01">
-  <div class="top"><span class="tag">SIGUE EL DINERO · IA 2026</span><span>01 / 10</span></div>
-  <h1>Nunca se invirtió tanto en tecnología.<br><span class="gold">¿Quién se lo queda?</span></h1>
-  <p class="lede">Recorremos la cadena completa: de dónde sale el dinero, quién lo cobra hoy y quién carga con la deuda. <b>Todo con números y fuentes.</b></p>
+<!-- 01 · PORTADA -->
+<section class="slide dark" id="s01">
+  <div class="head"><span class="eyebrow">Sigue el dinero · <b>IA 2026</b></span>
+    <div class="prog"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="pg">01/10</span></div></div>
+  <h1 style="margin-top:120px">Nunca se invirtió tanto en tecnología.<br><em>¿Quién se lo queda?</em></h1>
+  <p class="lede">Una guía en seis pasos por la cadena completa: de dónde sale el dinero, quién lo cobra hoy y quién carga con la deuda. <b>Con cifras y fuentes.</b></p>
   <div class="body">
-    <div class="cards" style="grid-template-columns:1fr 1fr 1fr;margin-top:30px">
-      <div class="card"><div class="h">Capex 2026</div><div class="big gold" style="font-size:64px">~US$730</div><div class="note">mil millones · 4 gigantes tecnológicas</div></div>
-      <div class="card"><div class="h">Margen Nvidia</div><div class="big teal" style="font-size:64px">75%</div><div class="note">Margen bruto de Nvidia, 2T 2026</div></div>
-      <div class="card"><div class="h">IPO Anthropic</div><div class="big" style="font-size:64px">US$1.4<span style="font-size:36px"> bill.</span></div><div class="note">Valoración tope del rango</div></div>
+    <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(239,232,218,.16);border-bottom:1px solid rgba(239,232,218,.16)">
+      <div style="padding:34px 30px 34px 0;border-right:1px solid rgba(239,232,218,.16)">
+        <div class="cap" style="color:var(--cream-mute)">Capex 2026</div>
+        <div class="num" style="font-size:88px;margin-top:14px;color:var(--ochre-lt)">~730</div>
+        <div style="font:300 21px/1.4 var(--sans);color:var(--cream-mute);margin-top:10px">mil millones de US$, 4 gigantes</div></div>
+      <div style="padding:34px 30px;border-right:1px solid rgba(239,232,218,.16)">
+        <div class="cap" style="color:var(--cream-mute)">Margen Nvidia</div>
+        <div class="num" style="font-size:88px;margin-top:14px">75%</div>
+        <div style="font:300 21px/1.4 var(--sans);color:var(--cream-mute);margin-top:10px">margen bruto del último trimestre</div></div>
+      <div style="padding:34px 0 34px 30px">
+        <div class="cap" style="color:var(--cream-mute)">IPO Anthropic</div>
+        <div class="num" style="font-size:88px;margin-top:14px">1.4<span style="font-size:44px"> bill.</span></div>
+        <div style="font:300 21px/1.4 var(--sans);color:var(--cream-mute);margin-top:10px">US$, valoración tope del rango</div></div>
     </div>
-    <div style="margin-top:auto;margin-bottom:46px;display:flex;justify-content:space-between;align-items:center">
-      <span class="stamp">DATOS AL 12 · NOV · 2026</span>
-      <span style="font:700 40px 'Barlow Condensed';text-transform:uppercase;color:var(--gold)">Empieza aquí →</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:40px 0 44px">
+      <span style="font:500 16px var(--mono);letter-spacing:.16em;color:var(--cream-mute)">DATOS AL 12.11.2026</span>
+      <span style="display:inline-flex;align-items:center;gap:16px;padding:10px 10px 10px 28px;border-radius:999px;background:var(--cream);color:var(--night);font:500 22px var(--sans)">Desliza
+        <span style="width:46px;height:46px;border-radius:50%;background:rgba(21,20,18,.08);display:grid;place-items:center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#151412" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
     </div>
   </div>
-  <div class="foot"><div class="src">Fuentes detalladas en cada lámina y en la lámina 10.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src">Fuentes al pie de cada lámina y completas en la 10.</div><div class="brand"></div></div>
 </section>
 
-<!-- 02 CAPEX -->
+<!-- 02 · INVERSIÓN -->
 <section class="slide" id="s02">
-  <div class="top"><span class="tag">PASO 1 · LA INVERSIÓN</span><span>02 / 10</span></div>
-  <h2>Cuatro empresas,<br><span class="gold">un cheque de ~US$730 mil M</span></h2>
-  <p class="lede">Lo que Amazon, Alphabet, Microsoft y Meta planean destinar en <b>2026</b> a servidores, chips, terrenos y electricidad. En miles de millones de US$.</p>
-  <div class="body">
-    <div class="bars">
-      <div class="bar-row"><div class="bar-label">Amazon<small>guía ~220</small></div>
-        <div class="track"><div class="fill" style="width:88%">220</div></div></div>
-      <div class="bar-row"><div class="bar-label">Alphabet<small>guía 195–205</small></div>
-        <div class="track"><div class="fill" style="width:78%">195</div><div class="ext" style="left:78%;width:4%"></div><span class="valout" style="left:84%">–205</span></div></div>
-      <div class="bar-row"><div class="bar-label">Microsoft<small>año calendario</small></div>
-        <div class="track"><div class="fill" style="width:68%">170</div></div></div>
-      <div class="bar-row"><div class="bar-label">Meta<small>guía 135–145</small></div>
-        <div class="track"><div class="fill" style="width:54%">135</div><div class="ext" style="left:54%;width:4%"></div><span class="valout" style="left:60%">–145</span></div></div>
+  <div class="head"><span class="eyebrow">Paso 1 · <b>La inversión</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="pg">02/10</span></div></div>
+  <h2>Cuatro empresas,<br><em>un cheque de ~730 mil M</em></h2>
+  <p class="lede">Lo que Amazon, Alphabet, Microsoft y Meta planean destinar en <b>2026</b> a servidores, chips, terrenos y electricidad.</p>
+  <div class="body" style="margin-top:44px">
+    <div style="display:flex;justify-content:space-between" class="cap"><span>Capex 2026 · guía</span><span>miles de millones de US$</span></div>
+    <div class="rule" style="margin:16px 0 8px"></div>
+    <div style="display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:230px 1fr;align-items:center;padding:20px 0;border-bottom:1px solid var(--hair-2)">
+        <div class="serif" style="font-size:44px">Amazon</div>
+        <div style="display:flex;align-items:center;gap:20px"><div style="height:22px;width:550px;background:var(--ink);border-radius:0 4px 4px 0"></div><span class="num" style="font-size:46px">~220</span></div></div>
+      <div style="display:grid;grid-template-columns:230px 1fr;align-items:center;padding:20px 0;border-bottom:1px solid var(--hair-2)">
+        <div class="serif" style="font-size:44px">Alphabet</div>
+        <div style="display:flex;align-items:center;gap:20px"><div style="display:flex;gap:2px"><div style="height:22px;width:487px;background:var(--ink)"></div><div class="hatch-o" style="height:22px;width:25px;border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--ochre)"></div></div><span class="num" style="font-size:46px">195–205</span></div></div>
+      <div style="display:grid;grid-template-columns:230px 1fr;align-items:center;padding:20px 0;border-bottom:1px solid var(--hair-2)">
+        <div class="serif" style="font-size:44px">Microsoft</div>
+        <div style="display:flex;align-items:center;gap:20px"><div style="height:22px;width:425px;background:var(--ink);border-radius:0 4px 4px 0"></div><span class="num" style="font-size:46px">~170</span></div></div>
+      <div style="display:grid;grid-template-columns:230px 1fr;align-items:center;padding:20px 0">
+        <div class="serif" style="font-size:44px">Meta</div>
+        <div style="display:flex;align-items:center;gap:20px"><div style="display:flex;gap:2px"><div style="height:22px;width:337px;background:var(--ink)"></div><div class="hatch-o" style="height:22px;width:25px;border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--ochre)"></div></div><span class="num" style="font-size:46px">135–145</span></div></div>
     </div>
-    <p style="font-size:24px;color:var(--mute);margin-top:30px;line-height:1.4">Microsoft bajó de 175 a 170 mil M porque le llegó tarde capacidad de proveedores. Para 2027, Alphabet y Meta ya avisaron que el gasto <b style="color:var(--ink)">sube</b>.</p>
-    <div class="total"><div class="k">Suma de las cuatro</div><div class="v">US$720–740 mil M</div></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:18px;font:400 18px var(--sans);color:var(--mute)">
+      <span class="hatch-o" style="width:26px;height:14px;border-radius:2px;box-shadow:inset 0 0 0 1.5px var(--ochre)"></span> Rango de la guía de la empresa</div>
+    <div class="bezel" style="margin-top:auto;margin-bottom:40px"><div class="core" style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px">
+      <div><div class="cap">Suma de las cuatro</div>
+        <p style="font:300 21px/1.45 var(--sans);color:var(--ink-2);margin-top:12px;max-width:440px">Microsoft bajó de 175 a 170 mil M por retrasos de proveedores. Para 2027, Alphabet y Meta ya avisaron que el gasto <b style="font-weight:500;color:var(--ink)">sube</b>.</p></div>
+      <div style="text-align:right"><div class="num" style="font-size:104px">720<span class="ochre">–</span>740</div><div class="cap" style="margin-top:8px">mil millones US$</div></div>
+    </div></div>
   </div>
-  <div class="foot"><div class="src"><b>Fuente:</b> guías de capex de Amazon, Alphabet, Microsoft y Meta en sus resultados del 3T 2026 (oct. 2026); recorte de Microsoft: llamada de resultados 1T año fiscal 2027 (28/10/2026).</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> guías de capex en los resultados del 3T 2026 de Amazon, Alphabet, Microsoft y Meta (oct. 2026); recorte de Microsoft, llamada del 28/10/2026.</div><div class="brand"></div></div>
 </section>
 
-<!-- 03 NUBE -->
+<!-- 03 · NUBE -->
 <section class="slide" id="s03">
-  <div class="top"><span class="tag">PASO 2 · LA FACTURACIÓN</span><span>03 / 10</span></div>
-  <h2>La nube factura<br><span class="gold">como nunca</span></h2>
-  <p class="lede">Así le fue a la nube entre <b>julio y septiembre de 2026</b>, comparado con el mismo período de 2025.</p>
+  <div class="head"><span class="eyebrow">Paso 2 · <b>La facturación</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="pg">03/10</span></div></div>
+  <h2>La nube factura<br><em>como nunca</em></h2>
+  <p class="lede">Julio a septiembre de 2026, comparado con el mismo trimestre de 2025.</p>
   <div class="body">
-    <div class="cards">
-      <div class="card"><div class="h">AWS (Amazon)</div>
-        <div class="big" style="font-size:68px">US$46.0 mil M<span class="pill">+39%</span></div>
-        <div class="note">Utilidad operativa: <b>US$17.8 mil M</b> · Cartera contratada: <b>US$578 mil M</b></div></div>
-      <div class="card"><div class="h">Google Cloud (Alphabet)</div>
-        <div class="big" style="font-size:68px">US$30.7 mil M<span class="pill">+103%</span></div>
-        <div class="note">Margen operativo: <b>36%</b> · Cartera contratada: <b>~US$561 mil M</b></div></div>
-      <div class="card"><div class="h">Azure (Microsoft)</div>
-        <div class="big" style="font-size:68px">Crecimiento<span class="pill">+48%</span></div>
-        <div class="note">Microsoft no publica los ingresos de Azure en dólares, solo su crecimiento.</div></div>
-    </div>
-    <div class="callout">Vender más no equivale a haber recuperado lo invertido. <span class="gold">Eso se mide en años, no en trimestres.</span></div>
+    <div style="display:grid;grid-template-columns:1fr 270px;padding-bottom:14px;border-bottom:1px solid var(--hair)" class="cap"><span>Ingresos del trimestre</span><span>Crecimiento anual</span></div>
+    <div style="display:grid;grid-template-columns:1fr 270px;align-items:center;padding:22px 0;border-bottom:1px solid var(--hair-2)">
+      <div><div class="cap" style="color:var(--ink-2)">AWS · Amazon</div>
+        <div class="num" style="font-size:92px;margin-top:10px">46.0 <span style="font-size:40px;color:var(--mute)">mil M US$</span></div>
+        <div style="font:300 21px var(--sans);color:var(--ink-2);margin-top:10px">Utilidad operativa 17.8 mil M · cartera firmada 578 mil M</div></div>
+      <div><div style="height:10px;background:var(--hair-2);border-radius:5px;position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--ink);border-radius:5px"></div></div>
+        <div class="num" style="font-size:52px;margin-top:14px">+39%</div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 270px;align-items:center;padding:22px 0;border-bottom:1px solid var(--hair-2)">
+      <div><div class="cap" style="color:var(--ink-2)">Google Cloud · Alphabet</div>
+        <div class="num" style="font-size:92px;margin-top:10px">30.7 <span style="font-size:40px;color:var(--mute)">mil M US$</span></div>
+        <div style="font:300 21px var(--sans);color:var(--ink-2);margin-top:10px">Margen operativo 36% · cartera firmada ~561 mil M</div></div>
+      <div><div style="height:10px;background:var(--hair-2);border-radius:5px;position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--ochre);border-radius:5px"></div></div>
+        <div class="num ochre" style="font-size:52px;margin-top:14px">+103%</div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 270px;align-items:center;padding:22px 0;border-bottom:1px solid var(--hair-2)">
+      <div><div class="cap" style="color:var(--ink-2)">Azure · Microsoft</div>
+        <div class="num" style="font-size:64px;margin-top:10px;color:var(--mute)">no publica la cifra</div>
+        <div style="font:300 21px var(--sans);color:var(--ink-2);margin-top:10px">Microsoft solo reporta el crecimiento de Azure</div></div>
+      <div><div style="height:10px;background:var(--hair-2);border-radius:5px;position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:47%;background:var(--ink);border-radius:5px"></div></div>
+        <div class="num" style="font-size:52px;margin-top:14px">+48%</div></div></div>
+    <p class="quote" style="font-size:36px">Vender más no equivale a haber recuperado lo invertido. <span>Eso se mide en años, no en trimestres.</span></p>
   </div>
-  <div class="foot"><div class="src"><b>Fuente:</b> 10-Q 3T 2026 de Amazon y Alphabet; Microsoft 1T AF2027. "Cartera" = ingresos contratados aún no facturados.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> 10-Q del 3T 2026 de Amazon y Alphabet; Microsoft, 1T año fiscal 2027. Cartera = ingresos contratados aún no facturados.</div><div class="brand"></div></div>
 </section>
 
-<!-- 04 BRECHA -->
+<!-- 04 · BRECHA -->
 <section class="slide" id="s04">
-  <div class="top"><span class="tag">PASO 3 · LA CUENTA</span><span>04 / 10</span></div>
-  <h2>Las cuentas<br><span class="gold">todavía no cierran</span></h2>
-  <p class="lede">Bain & Company estimó cuánto tendría que vender la industria cada año para financiar todo el cómputo que se está planificando.</p>
-  <div class="body">
-    <div class="bars" style="gap:26px">
-      <div class="bar-row" style="grid-template-columns:300px 1fr"><div class="bar-label">Haría falta<small>ingresos por año en 2030</small></div>
-        <div class="track"><div class="fill" style="width:100%">US$2 billones</div></div></div>
-      <div class="bar-row" style="grid-template-columns:300px 1fr"><div class="bar-label">Se proyecta<small>incluyendo ahorros por IA</small></div>
-        <div class="track"><div class="fill" style="width:60%;background:var(--teal)">~US$1.2 bill.</div>
-          <div class="ext" style="left:60%;width:40%;background:repeating-linear-gradient(135deg,rgba(255,107,94,.6) 0 8px,rgba(255,107,94,.2) 8px 16px)"></div></div></div>
+  <div class="head"><span class="eyebrow">Paso 3 · <b>La cuenta</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="pg">04/10</span></div></div>
+  <h2>Las cuentas<br><em>todavía no cierran</em></h2>
+  <p class="lede">Bain &amp; Company estimó cuánto tendría que vender la industria cada año para financiar todo el cómputo que se está planificando.</p>
+  <div class="body" style="margin-top:50px">
+    <div style="display:flex;justify-content:space-between" class="cap"><span>Ingresos anuales de IA en 2030</span><span>billones de US$</span></div>
+    <div style="display:flex;gap:3px;margin-top:22px;height:96px">
+      <div style="width:540px;background:var(--ink);border-radius:4px 0 0 4px;display:flex;align-items:flex-end;padding:14px 18px">
+        <span style="font:500 17px var(--mono);color:var(--paper);letter-spacing:.08em">SE PROYECTA</span></div>
+      <div class="hatch-w" style="flex:1;border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--wine);display:flex;align-items:flex-end;padding:14px 18px">
+        <span style="font:500 17px var(--mono);color:var(--wine);letter-spacing:.08em;background:var(--paper);padding:2px 6px;border-radius:3px">FALTA</span></div>
     </div>
-    <div class="card" style="margin-top:44px;border-color:rgba(255,107,94,.5)">
-      <div class="h">Lo que falta</div>
-      <div class="big red">US$800 mil millones / año</div>
-      <div class="note">Bain, septiembre 2025. La demanda mundial de cómputo para IA podría llegar a 200 GW en 2030.</div>
+    <div style="display:grid;grid-template-columns:543px 1fr;margin-top:14px">
+      <div class="num" style="font-size:56px">~1.2</div>
+      <div style="display:flex;justify-content:space-between"><span class="num wine" style="font-size:56px">0.8</span><span class="num" style="font-size:56px">= 2.0</span></div>
     </div>
-    <div class="callout" style="font-size:30px">La alerta no es nueva: en 2024, Sequoia Capital ya calculaba un hueco de <span class="gold">US$600 mil millones</span> entre gasto e ingresos.</div>
+    <div style="font:300 21px var(--sans);color:var(--mute);margin-top:6px">"Se proyecta" ya incluye los ahorros de costo que la IA generaría a las empresas.</div>
+    <div class="bezel" style="margin-top:40px"><div class="core">
+      <div class="cap">Brecha anual estimada</div>
+      <div class="num wine" style="font-size:132px;margin-top:12px">US$800 <span style="font-size:60px">mil M</span></div>
+      <div style="font:300 21px/1.45 var(--sans);color:var(--ink-2);margin-top:14px">La demanda mundial de cómputo para IA podría llegar a <b style="font-weight:500;color:var(--ink)">200 GW</b> en 2030.</div>
+    </div></div>
+    <p class="quote w" style="font-size:36px">La alerta no es nueva: en 2024, Sequoia Capital ya calculaba un hueco de <span>US$600 mil M</span> entre gasto e ingresos.</p>
   </div>
-  <div class="foot"><div class="src"><b>Fuente:</b> Bain & Company, Global Technology Report 2025 (23/09/2025); David Cahn, Sequoia Capital, "AI's $600B Question" (20/06/2024).</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> Bain &amp; Company, Global Technology Report 2025 (23/09/2025); D. Cahn, Sequoia Capital, "AI's $600B Question" (20/06/2024).</div><div class="brand"></div></div>
 </section>
 
-<!-- 05 NVIDIA -->
+<!-- 05 · NVIDIA -->
 <section class="slide" id="s05">
-  <div class="top"><span class="tag">PASO 4 · QUIÉN COBRA HOY</span><span>05 / 10</span></div>
-  <h2 style="font-size:76px">Nvidia no espera el retorno:<br><span class="gold">lo cobra cada trimestre</span></h2>
-  <p class="lede">Sus clientes apuestan a ganar en el futuro; el proveedor de los chips factura <b>ya</b>. Ingresos por trimestre, en miles de millones de US$.</p>
-  <div class="body">
-    <div style="display:flex;align-items:flex-end;gap:36px;height:320px;padding:0 10px;border-bottom:2px solid var(--line)">
-      <div style="flex:1;text-align:center"><div style="font:800 46px 'Barlow Condensed'">46.7</div><div style="height:131px;background:var(--line);border-radius:8px 8px 0 0;margin-top:8px"></div></div>
-      <div style="flex:1;text-align:center"><div style="font:800 46px 'Barlow Condensed'">81.6</div><div style="height:230px;background:var(--gold);border-radius:8px 8px 0 0;margin-top:8px"></div></div>
-      <div style="flex:1;text-align:center"><div style="font:800 46px 'Barlow Condensed'" class="gold">96.2</div><div style="height:271px;background:var(--gold);border-radius:8px 8px 0 0;margin-top:8px"></div></div>
-      <div style="flex:1;text-align:center"><div style="font:800 46px 'Barlow Condensed'" class="mute">~108</div><div style="height:258px;background:repeating-linear-gradient(135deg,rgba(242,181,68,.5) 0 10px,rgba(242,181,68,.15) 10px 20px);border-radius:8px 8px 0 0;margin-top:8px"></div></div>
+  <div class="head"><span class="eyebrow">Paso 4 · <b>Quién cobra hoy</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><span class="pg">05/10</span></div></div>
+  <h2>Nvidia no espera el retorno:<br><em>lo cobra cada trimestre</em></h2>
+  <p class="lede">Sus clientes apuestan a ganar en el futuro. El proveedor de los chips factura <b>hoy</b>.</p>
+  <div class="body" style="margin-top:48px">
+    <div style="display:flex;justify-content:space-between" class="cap"><span>Ingresos por trimestre</span><span>miles de millones US$</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;align-items:end;height:340px;margin-top:20px;border-bottom:1.5px solid var(--ink);padding:0 12px">
+      <div style="text-align:center"><div class="num" style="font-size:50px;color:var(--mute)">46.7</div><div style="height:117px;background:var(--hair);border-radius:4px 4px 0 0;margin:12px 22px 0"></div></div>
+      <div style="text-align:center"><div class="num" style="font-size:50px">81.6</div><div style="height:204px;background:var(--ink);border-radius:4px 4px 0 0;margin:12px 22px 0"></div></div>
+      <div style="text-align:center"><div class="num ochre" style="font-size:50px">96.2</div><div style="height:240px;background:var(--ochre);border-radius:4px 4px 0 0;margin:12px 22px 0"></div></div>
+      <div style="text-align:center"><div class="num" style="font-size:50px;color:var(--mute)">~108</div><div class="hatch-o" style="height:270px;border-radius:4px 4px 0 0;margin:12px 22px 0;box-shadow:inset 0 0 0 1.5px var(--ochre)"></div></div>
     </div>
-    <div style="display:flex;gap:36px;padding:12px 10px 0;font:500 20px 'JetBrains Mono';color:var(--mute);text-align:center">
-      <div style="flex:1">2T AF26<br>jul 2025</div><div style="flex:1">1T AF27<br>abr 2026</div><div style="flex:1">2T AF27<br>jul 2026</div><div style="flex:1">3T AF27<br>guía ±2%</div>
-    </div>
-    <div class="cards" style="grid-template-columns:1fr 1fr;margin-top:26px">
-      <div class="card" style="padding:24px 30px"><div class="h">Centros de datos</div><div class="big" style="font-size:66px">US$89.0 mil M<span class="pill">+117%</span></div><div class="note" style="font-size:22px">93% de sus ventas del 2T</div></div>
-      <div class="card" style="padding:24px 30px"><div class="h">Margen bruto</div><div class="big teal" style="font-size:66px">75.0%</div><div class="note" style="font-size:22px">Por cada US$100 en ventas, US$75 quedan después de fabricar</div></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;padding:14px 12px 0;text-align:center;font:400 16px/1.4 var(--mono);color:var(--mute)">
+      <div>jul 2025</div><div>abr 2026</div><div style="color:var(--ink)">jul 2026</div><div>guía próx.<br>trimestre ±2%</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;margin-top:auto;margin-bottom:40px;border-top:1px solid var(--hair)">
+      <div style="padding:30px 30px 0 0;border-right:1px solid var(--hair)">
+        <div class="cap">Centros de datos</div>
+        <div class="num" style="font-size:80px;margin-top:12px">89.0 <span class="chip" style="font-size:18px;vertical-align:middle">+117%</span></div>
+        <div style="font:300 21px var(--sans);color:var(--ink-2);margin-top:10px">mil M US$ · 93% de sus ventas</div></div>
+      <div style="padding:30px 0 0 34px">
+        <div class="cap">Margen bruto</div>
+        <div class="num ochre" style="font-size:80px;margin-top:12px">75.0%</div>
+        <div style="font:300 21px/1.4 var(--sans);color:var(--ink-2);margin-top:10px">De cada US$100 en ventas, quedan US$75 tras fabricar</div></div>
     </div>
   </div>
-  <div class="foot" style="margin-top:30px"><div class="src"><b>Fuente:</b> NVIDIA, resultados del 1T y 2T del año fiscal 2027 (trimestre cerrado el 26/07/2026) y guía del 3T. AF = año fiscal de Nvidia.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> NVIDIA, resultados del 1T y 2T del año fiscal 2027 (trimestre cerrado el 26/07/2026) y guía para el 3T. Jul 2025 = 2T año fiscal 2026.</div><div class="brand"></div></div>
 </section>
 
-<!-- 06 RIESGO -->
+<!-- 06 · RIESGO -->
 <section class="slide" id="s06">
-  <div class="top"><span class="tag">PASO 5 · DE DÓNDE SALE LA PLATA</span><span>06 / 10</span></div>
-  <h2>Mismo juego,<br><span class="gold">distinto colchón</span></h2>
+  <div class="head"><span class="eyebrow">Paso 5 · <b>De dónde sale la plata</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><span class="pg">06/10</span></div></div>
+  <h2>Mismo juego,<br><em>distinto colchón</em></h2>
   <p class="lede">El riesgo cambia según <b>quién pone el capital</b> para construir.</p>
-  <div class="body">
-    <div class="cards">
-      <div class="card" style="border-left:8px solid var(--teal)"><div class="h teal">1 · Caja propia — Big Tech</div>
-        <div class="note" style="font-size:25px;margin-top:10px">Generan suficiente efectivo para expandirse sin pedir prestado: AWS dejó <b>US$17.8 mil M</b> de utilidad operativa en tres meses.</div></div>
-      <div class="card" style="border-left:8px solid var(--gold)"><div class="h gold">2 · Capital de terceros — laboratorios de IA</div>
-        <div class="note" style="font-size:25px;margin-top:10px">Queman más de lo que ingresan y necesitan rondas o bolsa: OpenAI prevé <b>−US$278 mil M</b> de flujo libre entre 2026 y 2030; Anthropic ya firmó <b>~US$895 mil M</b> en cómputo.</div></div>
-      <div class="card" style="border-left:8px solid var(--red)"><div class="h red">3 · Préstamos — neoclouds y Oracle</div>
-        <div class="note" style="font-size:25px;margin-top:10px">CoreWeave carga <b>US$35.6 mil M</b> en deuda más <b>US$16.3 mil M</b> en arrendamientos, con bonos que llegaron a pagar <b>15%</b>. Oracle cerró su año fiscal con <b>−US$23.7 mil M</b> de flujo libre.</div></div>
+  <div class="body" style="flex-direction:row;gap:36px;margin-top:56px">
+    <div style="width:28px;display:flex;flex-direction:column;align-items:center;padding:8px 0 150px">
+      <span class="cap" style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:13px">menos riesgo</span>
+      <div style="flex:1;width:2px;margin:14px 0;background:linear-gradient(var(--hair),var(--wine))"></div>
+      <span class="cap" style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:13px;color:var(--wine)">más riesgo</span>
     </div>
-    <div class="callout">Quien paga intereses <span class="red">no tiene el lujo de esperar</span> a que lleguen los ingresos.</div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:76px 1fr;padding:4px 0 24px;border-bottom:1px solid var(--hair)">
+        <div class="num" style="font-size:64px;color:var(--mute)">i</div>
+        <div><div class="serif" style="font-size:46px">Caja propia <span class="cap" style="vertical-align:middle;margin-left:8px">Big Tech</span></div>
+          <p class="row-txt">Generan efectivo suficiente para expandirse sin pedir prestado. AWS dejó <b>US$17.8 mil M</b> de utilidad operativa en tres meses.</p></div></div>
+      <div style="display:grid;grid-template-columns:76px 1fr;padding:24px 0;border-bottom:1px solid var(--hair)">
+        <div class="num ochre" style="font-size:64px">ii</div>
+        <div><div class="serif" style="font-size:46px">Capital de terceros <span class="cap" style="vertical-align:middle;margin-left:8px">Laboratorios</span></div>
+          <p class="row-txt">Gastan más de lo que ingresan y dependen de rondas o de la bolsa. OpenAI prevé <b>−US$278 mil M</b> de flujo libre entre 2026 y 2030; Anthropic ya firmó <b>~US$895 mil M</b> en cómputo.</p></div></div>
+      <div style="display:grid;grid-template-columns:76px 1fr;padding:24px 0">
+        <div class="num wine" style="font-size:64px">iii</div>
+        <div><div class="serif" style="font-size:46px">Préstamos <span class="cap" style="vertical-align:middle;margin-left:8px">Neoclouds · Oracle</span></div>
+          <p class="row-txt">CoreWeave carga <b>US$35.6 mil M</b> en deuda más <b>16.3 mil M</b> en arrendamientos, con bonos que llegaron a pagar <b class="wine">15%</b>. Oracle cerró su año fiscal con <b class="wine">−US$23.7 mil M</b> de flujo libre.</p></div></div>
+      <p class="quote w" style="font-size:40px">Quien paga intereses <span>no puede darse el lujo de esperar</span> a que lleguen los ingresos.</p>
+    </div>
   </div>
-  <div class="foot"><div class="src"><b>Fuente:</b> Amazon 3T 2026; OpenAI vía FT/Reuters (18/09/2026); Anthropic S-1/A; CoreWeave 10-Q 2T 2026; CNN (20/10/2026); Oracle 8-K AF2026.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> Amazon 3T 2026; OpenAI vía FT/Reuters (18/09/2026); Anthropic, S-1/A; CoreWeave, 10-Q 2T 2026; CNN (20/10/2026); Oracle, 8-K año fiscal 2026.</div><div class="brand"></div></div>
 </section>
 
-<!-- 07 ANTHROPIC IPO -->
+<!-- 07 · IPO -->
 <section class="slide" id="s07">
-  <div class="top"><span class="tag">PASO 6 · EL MERCADO OPINA</span><span>07 / 10</span></div>
-  <h2 style="font-size:76px">ANT: la IA pasa<br><span class="gold">su primer examen público</span></h2>
-  <p class="lede">Anthropic (la empresa de Claude) inició su <i>roadshow</i> el 10/11 y apunta a cotizar cerca del <b>19 de noviembre</b>. El precio mostrará cuánto vale este negocio para los inversionistas.</p>
-  <div class="body">
-    <div class="cards" style="grid-template-columns:1fr 1fr">
-      <div class="card"><div class="h">Oferta</div><div class="big" style="font-size:54px">825 M acciones</div><div class="note">Clase A, a <b>US$70–78</b> c/u · Nasdaq: <b>ANT</b></div></div>
-      <div class="card"><div class="h">Recaudación</div><div class="big gold" style="font-size:54px">hasta ~US$64<span style="font-size:36px"> mil M</span></div><div class="note">En el tope del rango</div></div>
-      <div class="card"><div class="h">Valoración diluida</div><div class="big" style="font-size:54px">US$1.26–1.41 bill.</div><div class="note">A inicios de octubre se especulaba con US$2 billones</div></div>
-      <div class="card"><div class="h">Ingresos 3T 2026</div><div class="big teal" style="font-size:54px">US$16.96 mil M</div><div class="note">vs. US$11.56 mil M en el 2T · pérdida neta 3T: <b class="red">US$23.3 mil M</b></div></div>
-    </div>
-    <p style="font-size:22px;color:var(--mute);margin-top:26px;line-height:1.4">Buena parte de esa pérdida no es salida de caja: son cargos contables por los instrumentos con que levantó capital. Al 12/11/2026, precio y fecha siguen <b style="color:var(--ink)">sin confirmar</b>.</p>
+  <div class="head"><span class="eyebrow">Paso 6 · <b>El mercado opina</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><span class="pg">07/10</span></div></div>
+  <h2>La IA pasa su primer<br><em>examen público</em></h2>
+  <p class="lede">Anthropic, la empresa de Claude, inició su <i>roadshow</i> el 10 de noviembre y apunta a cotizar cerca del <b>19 de noviembre</b>.</p>
+  <div class="body" style="margin-top:46px">
+    <div class="bezel"><div class="core" style="padding:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:28px 38px;border-bottom:1px solid var(--hair)">
+        <div style="display:flex;align-items:baseline;gap:22px"><span class="num" style="font-size:84px">ANT</span><span class="cap">Nasdaq · Clase A</span></div>
+        <span class="chip">US$70 – 78 por acción</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="padding:30px 38px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)">
+          <div class="cap">Acciones ofrecidas</div><div class="num" style="font-size:72px;margin-top:10px">825 M</div></div>
+        <div style="padding:30px 38px;border-bottom:1px solid var(--hair)">
+          <div class="cap">Recaudación máx.</div><div class="num ochre" style="font-size:72px;margin-top:10px">~64 <span style="font-size:34px">mil M US$</span></div></div>
+        <div style="padding:30px 38px;border-right:1px solid var(--hair)">
+          <div class="cap">Valoración diluida</div><div class="num" style="font-size:72px;margin-top:10px">1.26–1.41</div>
+          <div style="font:300 21px/1.4 var(--sans);color:var(--ink-2);margin-top:8px">billones US$ · en octubre se hablaba de 2</div></div>
+        <div style="padding:30px 38px">
+          <div class="cap">Ingresos 3T 2026</div><div class="num" style="font-size:72px;margin-top:10px">16.96 <span style="font-size:34px">mil M</span></div>
+          <div style="font:300 21px/1.4 var(--sans);color:var(--ink-2);margin-top:8px">vs. 11.56 en el 2T · pérdida neta <b class="wine" style="font-weight:500">23.3 mil M</b></div></div>
+      </div>
+    </div></div>
+    <p style="font:300 20px/1.5 var(--sans);color:var(--mute);margin-top:24px">Buena parte de esa pérdida no es salida de caja: son cargos contables por los instrumentos con que levantó capital. Al 12/11/2026, precio y fecha siguen <b style="font-weight:500;color:var(--ink)">sin confirmar</b>.</p>
+    <p class="quote" style="font-size:40px">El precio dirá cuánto vale <span>este negocio</span> para los inversionistas.</p>
   </div>
-  <div class="foot" style="margin-top:20px"><div class="src"><b>Fuente:</b> Anthropic, anuncio del roadshow (10/11/2026); Formulario S-1/A ante la SEC; CNBC (10/11/2026); New York Times vía Gizmodo. 1 billón = 1 millón de millones.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> Anthropic, anuncio del roadshow (10/11/2026); Formulario S-1/A (SEC); CNBC (10/11/2026); New York Times vía Gizmodo. 1 billón = 1 millón de millones.</div><div class="brand"></div></div>
 </section>
 
-<!-- 08 HISTORIA -->
+<!-- 08 · HISTORIA -->
 <section class="slide" id="s08">
-  <div class="top"><span class="tag">ESPEJO HISTÓRICO</span><span>08 / 10</span></div>
-  <h2 style="font-size:76px">La infraestructura se queda.<br><span class="gold">El capital, no siempre.</span></h2>
+  <div class="head"><span class="eyebrow">Espejo <b>histórico</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><span class="pg">08/10</span></div></div>
+  <h2>La infraestructura se queda.<br><em>El capital, no siempre.</em></h2>
   <p class="lede">Dos auges que construyeron algo útil y aun así dejaron pérdidas enormes.</p>
-  <div class="body">
-    <div class="cards">
-      <div class="card"><div class="h">Fiebre ferroviaria · Reino Unido, década de 1840</div>
-        <div class="big red" style="font-size:64px">−50%+</div>
-        <div class="note" style="font-size:25px">Las acciones de trenes alcanzaron su techo en 1845 y cinco años después valían <b>menos de la mitad</b>. Quienes entraron pagando solo 10% quedaron atrapados cuando les exigieron el resto. <span class="teal">El legado: la red ferroviaria del país.</span></div></div>
-      <div class="card"><div class="h">Burbuja puntocom · 2000–2002</div>
-        <div class="big red" style="font-size:64px">−78%</div>
-        <div class="note" style="font-size:25px">El Nasdaq pasó de 5,048 puntos (mar. 2000) a 1,114 (oct. 2002). <span class="teal">Internet siguió creciendo de todas formas.</span></div></div>
-    </div>
-    <div class="callout" style="font-size:40px;font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;line-height:1.05">Que la tecnología funcione<br><span class="gold">no garantiza que la inversión rinda.</span></div>
+  <div class="body" style="margin-top:50px">
+    <div class="cap" style="display:flex;justify-content:space-between"><span>Valor que conservó la inversión</span><span>máximo = 100</span></div>
+    <div class="rule" style="margin:16px 0 0"></div>
+    <div style="padding:32px 0;border-bottom:1px solid var(--hair-2)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="serif" style="font-size:44px">Fiebre ferroviaria <span style="font-style:italic;color:var(--mute)">Reino Unido</span></span><span class="cap">1845 → 1850</span></div>
+      <div style="display:flex;gap:3px;height:26px;margin-top:20px"><div style="width:49%;background:var(--ink);border-radius:4px 0 0 4px"></div><div class="hatch-w" style="flex:1;border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--wine)"></div></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;margin-top:18px">
+        <div class="num wine" style="font-size:76px">&lt;50</div>
+        <p class="row-txt" style="font-size:22px;margin-top:4px">Quienes entraron pagando solo 10% quedaron atrapados cuando les exigieron el resto. <b>El legado: la red ferroviaria del país.</b></p></div></div>
+    <div style="padding:32px 0">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="serif" style="font-size:44px">Puntocom <span style="font-style:italic;color:var(--mute)">Nasdaq</span></span><span class="cap">mar 2000 → oct 2002</span></div>
+      <div style="display:flex;gap:3px;height:26px;margin-top:20px"><div style="width:22%;background:var(--ink);border-radius:4px 0 0 4px"></div><div class="hatch-w" style="flex:1;border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--wine)"></div></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;margin-top:18px">
+        <div class="num wine" style="font-size:76px">22</div>
+        <p class="row-txt" style="font-size:22px;margin-top:4px">El índice pasó de 5,048 a 1,114 puntos (−78%). <b>Internet siguió creciendo de todas formas.</b></p></div></div>
+    <p class="quote" style="font-size:44px">Que la tecnología funcione <span>no garantiza que la inversión rinda.</span></p>
   </div>
-  <div class="foot"><div class="src"><b>Fuente:</b> A. Odlyzko, "Collective Hallucinations and Inefficient Markets: The British Railway Mania of the 1840s" (2010); Yale SOM, caso "George Hudson and the 1840s Railway Mania"; cierres del Nasdaq Composite.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> A. Odlyzko, "Collective Hallucinations and Inefficient Markets: The British Railway Mania of the 1840s" (2010); Yale SOM, caso George Hudson; cierres del Nasdaq Composite.</div><div class="brand"></div></div>
 </section>
 
-<!-- 09 QUÉ VIGILAR -->
+<!-- 09 · AGENDA -->
 <section class="slide" id="s09">
-  <div class="top"><span class="tag">LA AGENDA</span><span>09 / 10</span></div>
-  <h2>Lo que hay que mirar<br><span class="gold">de aquí a enero</span></h2>
-  <div class="body">
-    <div class="cards" style="gap:18px">
-      <div class="card" style="padding:24px 32px"><div class="note" style="font-size:30px;margin:0"><b class="gold">01 ·</b> <b>Debut de ANT:</b> precio final y primer día de cotización.</div></div>
-      <div class="card" style="padding:24px 32px"><div class="note" style="font-size:30px;margin:0"><b class="gold">02 ·</b> <b>Nvidia 3T:</b> ¿cumple la guía de ~US$108 mil M?</div></div>
-      <div class="card" style="padding:24px 32px"><div class="note" style="font-size:30px;margin:0"><b class="gold">03 ·</b> <b>Capex 2027:</b> Alphabet y Meta ya dijeron que gastarán más.</div></div>
-      <div class="card" style="padding:24px 32px"><div class="note" style="font-size:30px;margin:0"><b class="gold">04 ·</b> <b>Deuda neocloud:</b> CoreWeave tiene US$10.6 mil M que vencen antes de fin de 2027.</div></div>
-      <div class="card" style="padding:24px 32px"><div class="note" style="font-size:30px;margin:0"><b class="gold">05 ·</b> <b>Oracle (mediados de dic.):</b> ~US$300 mil M de su cartera dependen de OpenAI.</div></div>
+  <div class="head"><span class="eyebrow">La <b>agenda</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><span class="pg">09/10</span></div></div>
+  <h2>Lo que hay que mirar<br><em>de aquí a enero</em></h2>
+  <div class="body" style="margin-top:44px">
+    <div style="position:relative;padding-left:56px">
+      <div style="position:absolute;left:11px;top:14px;bottom:44px;width:1.5px;background:var(--hair)"></div>
+      <div class="tl"><span class="dot" style="background:var(--ochre);box-shadow:0 0 0 6px var(--paper)"></span>
+        <div class="cap ochre">~19 de noviembre</div><div class="t">Debut de ANT en Nasdaq</div><p>Precio final y primer día de cotización.</p></div>
+      <div class="tl"><span class="dot"></span>
+        <div class="cap">Noviembre</div><div class="t">Resultados del 3T de Nvidia</div><p>¿Cumple la guía de ~US$108 mil M?</p></div>
+      <div class="tl"><span class="dot"></span>
+        <div class="cap">Mediados de diciembre</div><div class="t">Resultados de Oracle</div><p>~US$300 mil M de su cartera dependen de OpenAI.</p></div>
+      <div class="tl"><span class="dot"></span>
+        <div class="cap">Enero–febrero 2027</div><div class="t">Guías de capex para 2027</div><p>Alphabet y Meta ya adelantaron que gastarán más.</p></div>
+      <div class="tl" style="padding-bottom:0"><span class="dot" style="background:var(--wine);box-shadow:0 0 0 6px var(--paper)"></span>
+        <div class="cap wine">Hasta fines de 2027</div><div class="t">Vencimientos de CoreWeave</div><p>US$10.6 mil M de deuda por refinanciar o pagar.</p></div>
     </div>
-    <div class="callout">La utilidad de la IA ya casi nadie la discute. <span class="gold">La rentabilidad, todavía sí.</span></div>
+    <p class="quote" style="font-size:38px;padding-top:24px;border-top:1px solid var(--hair)">La utilidad de la IA ya casi nadie la discute. <span>La rentabilidad, todavía sí.</span></p>
   </div>
-  <div class="foot"><div class="src"><b>Fuente:</b> NVIDIA guía 3T AF27; llamadas de resultados 3T 2026 de Alphabet y Meta; CoreWeave 10-Q 2T 2026; CNBC (19/10/2026) sobre Oracle.</div><div class="brand"></div></div>
+  <div class="foot"><div class="src"><b>Fuente:</b> NVIDIA, guía 3T año fiscal 2027; llamadas 3T 2026 de Alphabet y Meta; CoreWeave, 10-Q 2T 2026; CNBC (19/10/2026) sobre Oracle.</div><div class="brand"></div></div>
 </section>
 
-<!-- 10 FUENTES -->
-<section class="slide" id="s10">
-  <div class="top"><span class="tag">FUENTES</span><span>10 / 10</span></div>
-  <h2 style="font-size:84px">Fuentes<br><span class="gold">y notas</span></h2>
-  <div class="body" style="margin-top:30px">
-    <ol style="font:400 20.5px/1.5 'JetBrains Mono',monospace;color:#C9CFDD;padding-left:34px;display:flex;flex-direction:column;gap:9px">
-      <li>Amazon, Alphabet, Meta — resultados y guías 3T 2026 (oct. 2026).</li>
-      <li>Microsoft — resultados 1T AF2027 y llamada con inversionistas (28/10/2026).</li>
-      <li>NVIDIA — resultados 1T y 2T AF2027, guía 3T (nvidianews.nvidia.com).</li>
-      <li>Bain & Company — Global Technology Report 2025 (23/09/2025).</li>
-      <li>D. Cahn, Sequoia Capital — "AI's $600B Question" (20/06/2024).</li>
-      <li>Anthropic — anuncio de roadshow (anthropic.com/news, 10/11/2026) y Formulario S-1/A (sec.gov).</li>
-      <li>CNBC — rango de precio y fecha del IPO de Anthropic (10/11/2026); deuda de Oracle (19/10/2026).</li>
-      <li>OpenAI — proyecciones de flujo de caja vía Financial Times / Reuters (18/09/2026).</li>
-      <li>CoreWeave — 10-Q 2T 2026; CNN (20/10/2026); Axios (20/10/2026).</li>
-      <li>Oracle — 8-K resultados AF2026 y 10-Q (sec.gov).</li>
-      <li>A. Odlyzko (2010), Railway Mania; Yale SOM, caso George Hudson.</li>
+<!-- 10 · FUENTES -->
+<section class="slide dark" id="s10">
+  <div class="head"><span class="eyebrow">Fuentes <b>y notas</b></span>
+    <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><span class="pg">10/10</span></div></div>
+  <h2>Cada cifra,<br><em>con su origen</em></h2>
+  <div class="body" style="margin-top:50px">
+    <ol style="list-style:none;display:flex;flex-direction:column">
+      <li class="src-li"><span class="cap">01</span>Amazon, Alphabet, Meta — resultados y guías 3T 2026 (oct. 2026)</li>
+      <li class="src-li"><span class="cap">02</span>Microsoft — resultados 1T año fiscal 2027 y llamada (28/10/2026)</li>
+      <li class="src-li"><span class="cap">03</span>NVIDIA — resultados 1T y 2T año fiscal 2027 y guía 3T</li>
+      <li class="src-li"><span class="cap">04</span>Bain &amp; Company — Global Technology Report 2025 (23/09/2025)</li>
+      <li class="src-li"><span class="cap">05</span>D. Cahn, Sequoia Capital — "AI's $600B Question" (20/06/2024)</li>
+      <li class="src-li"><span class="cap">06</span>Anthropic — anuncio del roadshow (10/11/2026) y Formulario S-1/A (sec.gov)</li>
+      <li class="src-li"><span class="cap">07</span>CNBC — IPO de Anthropic (10/11/2026) y deuda de Oracle (19/10/2026)</li>
+      <li class="src-li"><span class="cap">08</span>OpenAI — proyección de flujo de caja vía Financial Times / Reuters (18/09/2026)</li>
+      <li class="src-li"><span class="cap">09</span>CoreWeave — 10-Q 2T 2026; CNN y Axios (20/10/2026)</li>
+      <li class="src-li"><span class="cap">10</span>Oracle — 8-K resultados año fiscal 2026 y 10-Q (sec.gov)</li>
+      <li class="src-li" style="border-bottom:1px solid rgba(239,232,218,.12)"><span class="cap">11</span>A. Odlyzko (2010), Railway Mania; Yale SOM, caso George Hudson</li>
     </ol>
-    <div class="card" style="margin-top:auto;margin-bottom:40px;padding:24px 30px">
-      <div class="note" style="margin:0;font-size:22px">Montos en dólares estadounidenses. <b>"mil M"</b> = mil millones. <b>"billón"</b> = un millón de millones (trillion en inglés). Datos al 12/11/2026. Contenido informativo; <b>no es asesoría financiera.</b></div>
-    </div>
+    <p style="margin-top:auto;margin-bottom:40px;font:300 19px/1.55 var(--sans);color:var(--cream-mute)">Montos en dólares estadounidenses. "mil M" = mil millones; "billón" = un millón de millones. Datos al 12/11/2026. Contenido informativo, <b style="font-weight:500;color:var(--cream)">no es asesoría financiera.</b></p>
   </div>
   <div class="foot"><div class="src">Guárdalo y revísalo cuando salgan los próximos resultados.</div><div class="brand"></div></div>
 </section>

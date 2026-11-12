@@ -22,7 +22,8 @@ import { Mercado } from "./scenes/Mercado";
 import { PorQue } from "./scenes/PorQue";
 import { QuePaso } from "./scenes/QuePaso";
 import { Relevo } from "./scenes/Relevo";
-import { SCENES, TOTAL, TRANSITION, VOICE } from "./theme";
+import { BRAND, SCENES, TOTAL, TRANSITION, VOICE } from "./theme";
+import { Cierre } from "./scenes/Cierre";
 import { Chrome } from "./ui";
 
 // Cada escena dura TRANSITION frames más porque se solapa con la siguiente;
@@ -90,15 +91,39 @@ export const Reel: React.FC = () => (
       />
       <TransitionSeries.Sequence
         name="Importa"
-        durationInFrames={SCENES.importa}
+        durationInFrames={SCENES.importa + (BRAND.logo ? T : 0)}
       >
         <Importa />
       </TransitionSeries.Sequence>
+      {BRAND.logo ? (
+        <TransitionSeries.Transition
+          presentation={zoomThrough()}
+          timing={timing}
+        />
+      ) : null}
+      {BRAND.logo ? (
+        <TransitionSeries.Sequence
+          name="Cierre"
+          durationInFrames={SCENES.cierre}
+        >
+          <Cierre />
+        </TransitionSeries.Sequence>
+      ) : null}
     </TransitionSeries>
-    <Sequence name="Cabecera" durationInFrames={TOTAL} layout="none">
-      <Chrome total={TOTAL} />
+    <Sequence
+      name="Cabecera"
+      durationInFrames={TOTAL - SCENES.cierre}
+      layout="none"
+    >
+      <Chrome total={TOTAL - SCENES.cierre} />
     </Sequence>
-    <FilmLook />
-    <FadeOut frames={20} />
+    <Sequence
+      name="Grano y viñeta"
+      durationInFrames={TOTAL - SCENES.cierre}
+      layout="none"
+    >
+      <FilmLook />
+    </Sequence>
+    {BRAND.logo ? null : <FadeOut frames={20} />}
   </AbsoluteFill>
 );

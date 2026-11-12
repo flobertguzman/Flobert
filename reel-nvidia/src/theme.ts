@@ -20,10 +20,10 @@ export const C = {
 
 // Marca: cambia el usuario y, cuando tengas el archivo, pon el logo en
 // public/ y escribe su nombre en `logo` (por ejemplo 'logo.png').
+// Logo de cierre: pon el archivo en public/ (PNG con fondo transparente o SVG)
+// y escribe aquí su nombre, por ejemplo 'logo-heavy.png'. Con null no hay cierre.
 export const BRAND = {
-  handle: "@tumarca",
-  logo: null as string | null,
-  tagline: "El dinero detrás de la IA, explicado.",
+  logo: "logo-heavy.png" as string | null,
 };
 
 // Voz en off: cuando tengas tu grabación, ponla en public/voz/ y escribe aquí
@@ -45,6 +45,7 @@ export const SCENES = {
   porQue: 225,
   mercado: 142,
   relevo: 155,
-  importa: 234,
+  importa: BRAND.logo ? 204 : 234,
+  cierre: BRAND.logo ? 90 : 0,
 };
 export const TOTAL = Object.values(SCENES).reduce((a, b) => a + b, 0);

@@ -9,7 +9,7 @@ Los audios originales están en `public/voz/raw/` y la pista final sincronizada 
 | 0:05 | Qué pasó | Jensen Huang deja Nvidia, con efecto inmediato, tras treinta y tres años al mando. |
 | 0:11 | Contexto | Nvidia no dijo por qué. Pero la prensa reporta relaciones extramatrimoniales... una, con una presunta espía china. |
 | 0:19 | Mercado | Wall Street no esperó: la acción cayó casi un diez por ciento. |
-| 0:24 | Relevo | Colette Kress, su directora financiera, queda como CEO interina. |
+| 0:24 | Relevo | Colette Kress, su directora financiera, queda como CEO (pronunciado en inglés: "sí-i-óu") interina. |
 | 0:29 | Por qué importa | Toda la IA corre sobre sus chips. ¿Nvidia sin Jensen... sigue siendo Nvidia? |
 
 Para cambiar la voz: reemplaza `public/voz/voz.wav` (36,5 s, con cada línea en su tiempo) y vuelve a renderizar.

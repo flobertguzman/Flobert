@@ -1,11 +1,6 @@
 import React from "react";
 import { Audio } from "@remotion/media";
-import {
-  AbsoluteFill,
-  Easing,
-  Sequence,
-  staticFile,
-} from "remotion";
+import { AbsoluteFill, Easing, Sequence, staticFile } from "remotion";
 import { linearTiming, TransitionSeries } from "@remotion/transitions";
 import {
   Backdrop,
